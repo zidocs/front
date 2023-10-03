@@ -6,17 +6,10 @@ import { Search } from './ui/search';
 import { ChevronRight, Menu } from 'lucide-react';
 import { Sidebar } from './side-bar';
 import { usePathname } from 'next/navigation';
+import { DataFromConfig } from '@/lib/mdx';
 
 interface NavBarProps {
-  data: {
-    name: string;
-    pages: {
-      title: any;
-      href: any;
-      group: any;
-      content: any;
-    }[];
-  }[];
+  data: DataFromConfig[];
   config: any;
 }
 
@@ -32,7 +25,7 @@ export function NavBar({ data, config }: NavBarProps) {
 
   return (
     <>
-      <div className="max-w-8xl sticky top-0 z-30 m-auto mb-4 flex flex-col backdrop-blur-md">
+      <div className="sticky top-0 z-30 m-auto mb-4 flex max-w-8xl flex-col backdrop-blur-md">
         <div className="border-b border-primary border-opacity-5">
           <div className="flex items-center gap-2 border-b border-primary border-opacity-5 p-2 px-4 lg:p-4 lg:px-12">
             <img src={`/starter-kit/${config.favicon}`} width={24} />

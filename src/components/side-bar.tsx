@@ -6,16 +6,13 @@ import Link from 'next/link';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { usePathname } from 'next/navigation';
 import { Typography } from './mdx/typography';
+import { DataFromConfig, PageFromConfig } from '@/lib/mdx';
 
-interface ISideBarSubItem {
-  title: string;
-  href: string;
+interface ISideBarSubItem extends PageFromConfig {
   onClick?: () => void;
 }
 
-interface ISideBarItem {
-  name: string;
-  pages: ISideBarSubItem[];
+interface ISideBarItem extends DataFromConfig {
   onClick?: () => void;
 }
 
@@ -55,15 +52,8 @@ function SideBarItem({ name, pages, onClick }: ISideBarItem) {
         {name}
       </h2>
       <div className="space-y-1">
-        {pages.map(({ title, href }: ISideBarSubItem) => {
-          return (
-            <SideBarSubItem
-              onClick={onClick}
-              key={href}
-              href={href}
-              title={title}
-            />
-          );
+        {pages.map((data: ISideBarSubItem) => {
+          return <SideBarSubItem onClick={onClick} key={data.href} {...data} />;
         })}
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from './button';
-import { cn } from '@/lib/utils';
+import { cn, complexSearch } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import {
   CommandDialog,
@@ -15,22 +15,16 @@ import {
 } from './command';
 import { FileIcon, SearchIcon } from 'lucide-react';
 import React from 'react';
+import { DataFromConfig } from '@/lib/mdx';
 
 interface SearchProps {
-  data: {
-    name: string;
-    pages: {
-      title: string;
-      href: string;
-      content: any;
-    }[];
-  }[];
+  data: DataFromConfig[];
 }
 
 export function Search({ data }: SearchProps) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = React.useState('');
-  const [filteredData, setFilteredData] = useState<any[]>(data);
+  const [filteredData, setFilteredData] = useState(data);
   const router = useRouter();
 
   useEffect(() => {
@@ -85,6 +79,7 @@ export function Search({ data }: SearchProps) {
             return (
               <CommandGroup key={groups.name} heading={groups.name}>
                 {groups.pages.map((page: any) => {
+                  const searchResult = complexSearch(page.content, search);
                   return (
                     <CommandItem
                       key={page.href}

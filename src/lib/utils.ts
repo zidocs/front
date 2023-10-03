@@ -9,28 +9,46 @@ export function capitalizeFirstLetter(string: string) {
   return string[0].toUpperCase() + string.slice(1);
 }
 
-/**
- * Traverse any props.children to get their combined text content.
- *
- * This does not add whitespace for readability: `<p>Hello <em>world</em>!</p>`
- * yields `Hello world!` as expected, but `<p>Hello</p><p>world</p>` returns
- * `Helloworld`, just like https://mdn.io/Node/textContent does.
- *
- * NOTE: This may be very dependent on the internals of React.
- */
-export function textContent(elem: React.ReactElement | string): string {
-  if (!elem) {
-    return '';
-  }
-  if (typeof elem === 'string') {
-    return elem;
+// TODO: Pesquisar sobre algoritmos para ajuda na pesquisa complexa
+export function complexSearch(text: string, input: string) {
+  if (input === '') return '';
+
+  let replacedString = text.replace(/#/g, '');
+  replacedString = replacedString.replace(/\n/g, ' ');
+
+  const textSplitted = replacedString.split(' ');
+
+  const inputSplitted = input.toLowerCase().split(' ');
+  const indexes = [];
+
+  for (var i = 0; i < inputSplitted.length; i++) {
+    const index = replacedString
+      .toLowerCase()
+      .split(' ')
+      .indexOf(inputSplitted[i]);
+    if (index !== -1) {
+      indexes.push(index);
+    }
   }
 
-  const children = elem.props && elem.props.children;
+  if (indexes.length === 0) return '';
 
-  if (children instanceof Array) {
-    return children.map(textContent).join('');
+  indexes.sort(function (a, b) {
+    return a - b;
+  });
+
+  const result = [];
+  for (var j = 0; j < 10; j++) {
+    let index = indexes[0];
+    index = index + j;
+
+    if (index >= textSplitted.length) {
+      index = index - j * 2;
+      result.unshift(textSplitted[index]);
+    } else {
+      result.push(textSplitted[index]);
+    }
   }
 
-  return textContent(children);
+  return result.join(' ');
 }
