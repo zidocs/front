@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 
 import { getSideBarData } from '@/lib/mdx';
 import { NavBar } from '@/components/nav-bar';
+import { LeftSideBar } from '@/components/left-side-bar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,8 +39,13 @@ export default async function RootLayout({
 
           <div className="m-auto max-w-8xl">
             <Sidebar className="fixed w-[18rem] lg:pl-8" data={data} />
-            <div className="w-full p-6 lg:pl-[20rem] xl:max-w-5xl">
-              {children}
+            <div className="flex p-6 lg:pl-[20rem]">
+              <div className="relative w-full max-w-3xl grow overflow-hidden xl:max-w-[49rem] xl:pl-14">
+                {children}
+              </div>
+              <div className="hidden w-[19rem] flex-none pl-10 xl:flex">
+                <LeftSideBar data={data} />
+              </div>
             </div>
           </div>
         </ThemeProvider>

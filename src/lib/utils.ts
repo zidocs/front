@@ -9,6 +9,14 @@ export function capitalizeFirstLetter(string: string) {
   return string[0].toUpperCase() + string.slice(1);
 }
 
+export function slugify(input: string) {
+  const cleanedString = input.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
+
+  const slug = cleanedString.replace(/-+/g, '-');
+
+  return slug.replace(/^-+|-+$/g, '');
+}
+
 // TODO: Pesquisar sobre algoritmos para ajuda na pesquisa complexa
 export function complexSearch(text: string, input: string) {
   if (input === '') return '';
