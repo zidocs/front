@@ -5,13 +5,13 @@ import * as React from 'react';
 const typographyVariants = cva('', {
   variants: {
     variant: {
-      h1: 'text-2xl font-bold',
-      h2: 'text-xl font-bold my-4',
-      h3: 'text-lg',
-      h4: 'text-base',
-      h5: 'text-sm',
-      h6: 'text-xs',
-      p: 'text-base opacity-80 my-2',
+      h1: 'text-3xl font-bold',
+      h2: 'text-2xl font-bold my-4',
+      h3: 'text-xl',
+      h4: 'text-lg',
+      h5: 'text-base',
+      h6: 'text-sm',
+      p: 'text-base opacity-70 my-2',
       span: 'text-base',
     },
   },
@@ -33,7 +33,7 @@ const Typography = (props: TypographyProps) => {
 
   return (
     <Tag
-      className={cn(typographyVariants({ variant, className }))}
+      className={cn(typographyVariants({ variant, className }), 'leading-7')}
       {...restProps}
     ></Tag>
   );

@@ -36,9 +36,9 @@ export default async function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <NavBar config={config} data={data} />
 
-          <div className="max-w-8xl m-auto flex justify-center gap-12 lg:justify-normal lg:p-0">
-            <Sidebar className="lg:pl-8" data={data} />
-            <div className="w-full max-w-3xl pl-4 lg:pl-0 xl:max-w-[49rem]">
+          <div className="m-auto max-w-8xl">
+            <Sidebar className="fixed w-[18rem] lg:pl-8" data={data} />
+            <div className="w-full p-6 lg:pl-[20rem] xl:max-w-5xl">
               {children}
             </div>
           </div>

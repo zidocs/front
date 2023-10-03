@@ -48,9 +48,7 @@ function SideBarSubItem({ title, href, onClick }: ISideBarSubItem) {
 function SideBarItem({ name, pages, onClick }: ISideBarItem) {
   return (
     <div className="pb-12 font-medium">
-      <h2 className="letter-sp mb-3 px-4 text-lg tracking-wide lg:text-sm">
-        {name}
-      </h2>
+      <h2 className=" mb-3 px-4 text-lg tracking-wide lg:text-sm">{name}</h2>
       <div className="space-y-1">
         {pages.map((data: ISideBarSubItem) => {
           return <SideBarSubItem onClick={onClick} key={data.href} {...data} />;
@@ -78,7 +76,7 @@ export function Sidebar({
           open
             ? 'fixed bottom-0 left-0 top-0 z-40 block bg-background'
             : 'hidden'
-        }  w-[18rem] transition-all lg:block lg:w-[14rem] lg:opacity-100 ${className}`
+        }  w-[18rem] transition-all lg:block lg:opacity-100 ${className}`
       )}
     >
       <div className="space-y-4">

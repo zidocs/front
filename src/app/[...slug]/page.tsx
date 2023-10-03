@@ -37,7 +37,7 @@ export default async function Content({
         <Typography variant="h1" tag="h1">
           {mdx.meta.title}
         </Typography>
-        <Typography variant="h3" tag="h2" className="opacity-80">
+        <Typography variant="h4" tag="h2" className="font-light opacity-70">
           {mdx.meta.description}
         </Typography>
       </div>

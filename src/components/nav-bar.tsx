@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ModeToggle } from './mode-toggle';
 import { Search } from './ui/search';
 import { ChevronRight, Menu } from 'lucide-react';
@@ -16,6 +16,12 @@ interface NavBarProps {
 export function NavBar({ data, config }: NavBarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    isOpen
+      ? (document.body.style.overflow = 'hidden')
+      : (document.body.style.overflow = 'scroll');
+  }, [isOpen]);
 
   const actualPage = data
     .find((group) => {
@@ -38,15 +44,14 @@ export function NavBar({ data, config }: NavBarProps) {
           <div className="flex items-center gap-3 p-4 text-sm lg:hidden">
             <button
               onClick={() => {
-                document.body.style.overflow = 'hidden';
                 setIsOpen(!isOpen);
               }}
-              className="opacity-60 lg:hidden"
+              className="opacity-70 lg:hidden"
             >
               <Menu className="p-0" size={20} />
             </button>
-            <span className="opacity-60">{actualPage?.group}</span>
-            <span className="opacity-60">
+            <span className="opacity-70">{actualPage?.group}</span>
+            <span className="opacity-70">
               <ChevronRight size={14} />
             </span>
             <span>{actualPage?.title}</span>
