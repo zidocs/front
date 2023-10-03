@@ -7,23 +7,11 @@ import { ChevronRight, Menu } from 'lucide-react';
 import { Sidebar } from './side-bar';
 import { usePathname } from 'next/navigation';
 import { DataFromConfig } from '@/lib/mdx';
-import { slugify } from '@/lib/utils';
 
 interface NavBarProps {
   data: DataFromConfig[];
   config: any;
 }
-
-function simpleSearch(arr: string[], searchParameter: string) {
-  const indices = [];
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i].indexOf(searchParameter) !== -1) {
-      indices.push(i);
-    }
-  }
-  return indices;
-}
-
 export function NavBar({ data, config }: NavBarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -39,10 +27,6 @@ export function NavBar({ data, config }: NavBarProps) {
       return group.pages.find((page) => `/${page.href}` == pathname);
     })
     ?.pages.find((page) => `/${page.href}` == pathname);
-
-  const arr = actualPage?.content.split('\n');
-  const str = slugify(arr?.[6].trim() as string);
-  console.log(simpleSearch(arr as string[], '##'));
 
   return (
     <>

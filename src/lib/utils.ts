@@ -17,6 +17,23 @@ export function slugify(input: string) {
   return slug.replace(/^-+|-+$/g, '');
 }
 
+export function countOccur(input: string, array: string[]) {
+  let count = 0;
+
+  for (const str of array) {
+    let startIndex = 0;
+    while (startIndex !== -1) {
+      startIndex = str.indexOf(input, startIndex);
+      if (startIndex !== -1) {
+        count++;
+        startIndex += input.length;
+      }
+    }
+  }
+
+  return count;
+}
+
 // TODO: Pesquisar sobre algoritmos para ajuda na pesquisa complexa
 export function complexSearch(text: string, input: string) {
   if (input === '') return '';
