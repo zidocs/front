@@ -76,7 +76,7 @@ export function Sidebar({
           open
             ? 'fixed bottom-0 left-0 top-0 z-40 block bg-background'
             : 'hidden'
-        }  w-[18rem] transition-all lg:block lg:opacity-100 ${className}`
+        }  w-[18rem] transition-all lg:block lg:pt-6 lg:opacity-100 ${className}`
       )}
     >
       <div className="space-y-4">

@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { DataFromConfig } from '@/lib/mdx';
 import { cn, countOccur, slugify } from '@/lib/utils';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 interface LeftSideBarProps {
   data: DataFromConfig[];
@@ -134,6 +135,13 @@ export function LeftSideBar({ data }: LeftSideBarProps) {
     }
   };
 
+  const handleClick = (id: string, parentId?: string) => {
+    setSelectedItem({
+      id,
+      parentId,
+    });
+  };
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
 
@@ -143,16 +151,25 @@ export function LeftSideBar({ data }: LeftSideBarProps) {
   }, [result]);
 
   useEffect(() => {
-    handleScroll();
-  });
+    try {
+      const arr = actualPage?.content.split('\n');
+      const indexes = simpleSearch(arr as string[]);
+      setSelectedItem({
+        id: slugify(arr?.[indexes[0].index].trim() as string),
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }, [actualPage]);
 
   return (
     <ul className="fixed flex flex-col gap-1 text-sm">
-      {result.map(({ href, name, children }, index) => {
+      {result.map(({ href, name, children }) => {
         return (
           <>
             <li key={href}>
-              <a
+              <Link
+                onClick={() => handleClick(href)}
                 className={cn(
                   selectedItem?.id === href || selectedItem?.parentId === href
                     ? 'leading-7 text-primary opacity-100'
@@ -163,23 +180,24 @@ export function LeftSideBar({ data }: LeftSideBarProps) {
                 href={`#${href}`}
               >
                 {name}
-              </a>
+              </Link>
             </li>
-            {children?.map(({ href, name }, index) => {
+            {children?.map((child) => {
               return (
-                <li key={href} className="pl-4">
-                  <a
+                <li key={child.href} className="pl-4">
+                  <Link
+                    onClick={() => handleClick(child.href, href)}
                     className={cn(
-                      selectedItem?.id === href
+                      selectedItem?.id === child.href
                         ? 'leading-7 text-primary opacity-100'
                         : 'leading-7 opacity-60 hover:opacity-80'
                     )}
-                    id={href}
-                    key={href}
-                    href={`#${href}`}
+                    id={child.href}
+                    key={child.href}
+                    href={`#${child.href}`}
                   >
-                    {name}
-                  </a>
+                    {child.name}
+                  </Link>
                 </li>
               );
             })}

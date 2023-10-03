@@ -14,7 +14,9 @@ export function slugify(input: string) {
 
   const slug = cleanedString.replace(/-+/g, '-');
 
-  return slug.replace(/^-+|-+$/g, '');
+  const slugReplaced = slug.replace(/^-+|-+$/g, '');
+
+  return slugReplaced.replace(/^\d+/, '').replace(/^[\d-]+/, '');
 }
 
 export function countOccur(input: string, array: string[]) {

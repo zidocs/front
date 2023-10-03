@@ -33,8 +33,16 @@ export function NavBar({ data, config }: NavBarProps) {
       <div className="sticky top-0 z-30 m-auto mb-4 flex max-w-8xl flex-col backdrop-blur-md">
         <div className="border-b border-primary border-opacity-5">
           <div className="flex items-center gap-2 border-b border-primary border-opacity-5 p-2 px-4 lg:p-4 lg:px-12">
-            <img src={`/starter-kit/${config.favicon}`} width={24} />
-            {config.name}
+            <img
+              className="hidden dark:block"
+              src={`/starter-kit/${config.logo.dark}`}
+              width={100}
+            />
+            <img
+              className="hidden light:block"
+              src={`/starter-kit/${config.logo.light}`}
+              width={100}
+            />
             <div className="ml-auto flex items-center space-x-4">
               <Search data={data} />
               <ModeToggle />

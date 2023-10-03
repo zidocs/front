@@ -25,7 +25,7 @@ export default async function RootLayout({
   const data = await getSideBarData();
 
   return (
-    <html lang="en">
+    <html className="scroll-pt-24" lang="en">
       <head>
         <link
           rel="icon"
@@ -39,7 +39,7 @@ export default async function RootLayout({
 
           <div className="m-auto max-w-8xl">
             <Sidebar className="fixed w-[18rem] lg:pl-8" data={data} />
-            <div className="flex p-6 lg:pl-[20rem]">
+            <div className="flex gap-12 p-6 lg:pl-[20rem]">
               <div className="relative w-full max-w-3xl grow overflow-hidden xl:max-w-[49rem] xl:pl-14">
                 {children}
               </div>

@@ -13,7 +13,7 @@ import {
   CommandList,
   CommandSeparator,
 } from './command';
-import { FileIcon, SearchIcon } from 'lucide-react';
+import { FileText, SearchIcon } from 'lucide-react';
 import React from 'react';
 import { DataFromConfig } from '@/lib/mdx';
 
@@ -87,7 +87,7 @@ export function Search({ data }: SearchProps) {
                         runCommand(() => router.push(page.href as string));
                       }}
                     >
-                      <FileIcon className="mr-2 h-4 w-4" />
+                      <FileText className="mr-2 h-4 w-4" />
                       {page.title}
                     </CommandItem>
                   );
