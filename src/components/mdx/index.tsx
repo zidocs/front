@@ -1,3 +1,4 @@
+import { Button } from '../ui/button';
 import { Typography } from './typography';
 import { slugify } from '@/lib/utils';
 

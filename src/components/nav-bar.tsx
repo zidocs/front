@@ -19,7 +19,7 @@ export function NavBar({ data, config }: NavBarProps) {
   useEffect(() => {
     isOpen
       ? (document.body.style.overflow = 'hidden')
-      : (document.body.style.overflow = 'scroll');
+      : (document.body.style.overflow = 'auto');
   }, [isOpen]);
 
   const actualPage = data
@@ -30,8 +30,8 @@ export function NavBar({ data, config }: NavBarProps) {
 
   return (
     <>
-      <div className="sticky top-0 z-30 m-auto mb-4 flex max-w-8xl flex-col backdrop-blur-md">
-        <div className="border-b border-primary border-opacity-5">
+      <div className="sticky top-0 z-30 m-auto mb-4 flex max-w-8xl flex-col pt-1 backdrop-blur-md">
+        <div className="border-b border-black border-opacity-[0.01] dark:border-white dark:border-opacity-10">
           <div className="flex items-center gap-2 border-b border-primary border-opacity-5 p-2 px-4 lg:p-4 lg:px-12">
             <img
               className="hidden dark:block"

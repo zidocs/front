@@ -60,37 +60,41 @@ export function LeftSideBar({ data }: LeftSideBarProps) {
     ?.pages.find((page) => `/${page.href}` == pathname);
 
   useEffect(() => {
-    const arr = actualPage?.content.split('\n');
-    const indexes = simpleSearch(arr as string[]);
+    try {
+      const arr = actualPage?.content.split('\n');
+      const indexes = simpleSearch(arr as string[]);
 
-    let names: string[] = [];
-    const result = indexes.map(({ index, children }) => {
-      let href = slugify(arr?.[index].trim() as string);
-      let childArr: any = [];
-      if (children && children?.length > 0) {
-        childArr = children.map((index) => {
-          const href = slugify(arr?.[index].trim() as string);
-          return {
-            name: arr?.[index].trim().replace(/[^a-zA-Z0-9]+/g, ' '),
-            href,
-          };
-        });
-      }
+      let names: string[] = [];
+      const result = indexes.map(({ index, children }) => {
+        let href = slugify(arr?.[index].trim() as string);
+        let childArr: any = [];
+        if (children && children?.length > 0) {
+          childArr = children.map((index) => {
+            const href = slugify(arr?.[index].trim() as string);
+            return {
+              name: arr?.[index].replace(/^#+/, '').trim(),
+              href,
+            };
+          });
+        }
 
-      const count = countOccur(href, names);
-      if (count > 0) {
-        href = `${href}-${count + 1}`;
-      }
-      names.push(href);
+        const count = countOccur(href, names);
+        if (count > 0) {
+          href = `${href}-${count + 1}`;
+        }
+        names.push(href);
 
-      return {
-        name: arr?.[index].trim().replace(/[^a-zA-Z0-9]+/g, ' '),
-        href,
-        children: childArr,
-      };
-    });
+        return {
+          name: arr?.[index].trim().replace(/[^a-zA-Z0-9]+/g, ' '),
+          href,
+          children: childArr,
+        };
+      });
 
-    setResult([...result]);
+      setResult([...result]);
+    } catch (err) {
+      console.log(err);
+    }
   }, [actualPage]);
 
   const handleScroll = () => {

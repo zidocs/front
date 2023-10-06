@@ -52,7 +52,7 @@ export function Search({ data }: SearchProps) {
       <Button
         variant="outline"
         className={cn(
-          'relative justify-start border-transparent p-0 text-sm text-muted-foreground hover:bg-transparent md:w-64 md:border-border md:px-3 md:py-2 md:hover:bg-primary md:hover:bg-opacity-10'
+          'relative justify-start border-transparent bg-transparent p-0 text-sm text-muted-foreground hover:bg-transparent md:w-64 md:border-border md:px-3 md:py-2 md:hover:bg-primary md:hover:bg-opacity-10'
         )}
         onClick={() => setOpen(true)}
       >
