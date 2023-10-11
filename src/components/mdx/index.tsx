@@ -1,6 +1,13 @@
-import { Button } from '../ui/button';
+import React from 'react';
 import { Typography } from './typography';
-import { slugify } from '@/lib/utils';
+import { cn, slugify } from '@/lib/utils';
+import { CopyButton } from '../ui/copy-button';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '../ui/accordion';
 
 export const components = {
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
@@ -57,4 +64,36 @@ export const components = {
       </Typography>
     );
   },
+  pre: ({ className, children, ...props }: any) => {
+    return (
+      <div>
+        <CopyButton
+          className="absolute right-0 z-10 p-4"
+          value={children.props.children}
+        />
+        <pre
+          className={cn(
+            'mb-4 mt-6 max-h-[650px] overflow-x-auto rounded-lg border bg-white p-4 dark:bg-zinc-900',
+            className
+          )}
+          {...props}
+        >
+          {children}
+        </pre>
+      </div>
+    );
+  },
+  code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
+    <code
+      className={cn(
+        'relative rounded text-sm text-black dark:text-white',
+        className
+      )}
+      {...props}
+    />
+  ),
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
 };

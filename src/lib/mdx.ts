@@ -3,6 +3,7 @@ import path from 'path';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import { components } from '../components/mdx';
 import config from '../../public/starter-kit/zidocs.json';
+import rehypeHighlight from 'rehype-highlight';
 
 export interface IMDXFile {
   MDXComponent: React.ReactNode;
@@ -41,6 +42,10 @@ export const getMdxBySlug = async (
     const { frontmatter, content } = await compileMDX({
       source: fileContent,
       options: {
+        mdxOptions: {
+          //@ts-ignore
+          rehypePlugins: [rehypeHighlight],
+        },
         parseFrontmatter: true,
       },
       components,

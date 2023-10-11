@@ -29,6 +29,12 @@ export default async function RootLayout({
 
   return (
     <html className="scroll-pt-24" lang="en">
+      <head>
+        {/* <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/github-dark.min.css"
+        ></link> */}
+      </head>
       <body className={cn(`${inter.className}`)}>
         <span
           className="fixed inset-0"
