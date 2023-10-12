@@ -1,6 +1,13 @@
-import { redirect } from 'next/navigation';
+'use client';
+
 import config from '../../public/starter-kit/zidocs.json';
 
+import { useEffect } from 'react';
+
 export default function NotFound() {
-  redirect(`/${config.navigation[0].pages[0]}`);
+  useEffect(() => {
+    window.location.replace(`/${config.navigation[0].pages[0]}`);
+  });
+
+  return null;
 }
