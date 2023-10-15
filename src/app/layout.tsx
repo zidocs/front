@@ -27,6 +27,10 @@ export default async function RootLayout({
 }) {
   const data = await getSideBarData();
 
+  if (!data) {
+    return <div>Loading</div>;
+  }
+
   return (
     <html className="scroll-pt-24" lang="en">
       <body className={cn(`${inter.className}`)}>

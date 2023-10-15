@@ -6,7 +6,7 @@ import { Search } from './ui/search';
 import { ChevronRight, Menu } from 'lucide-react';
 import { Sidebar } from './side-bar';
 import { usePathname } from 'next/navigation';
-import { DataFromConfig } from '@/lib/mdx';
+import { DataFromConfig, getSideBarData } from '@/lib/mdx';
 
 interface NavBarProps {
   data: DataFromConfig[];

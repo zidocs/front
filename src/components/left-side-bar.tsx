@@ -61,7 +61,12 @@ export function LeftSideBar({ data }: LeftSideBarProps) {
 
   useEffect(() => {
     try {
+      if (!actualPage || !actualPage?.content) {
+        return;
+      }
+
       const arr = actualPage?.content.split('\n');
+
       const indexes = simpleSearch(arr as string[]);
 
       let names: string[] = [];
@@ -156,6 +161,10 @@ export function LeftSideBar({ data }: LeftSideBarProps) {
 
   useEffect(() => {
     try {
+      if (!actualPage || !actualPage?.content) {
+        return;
+      }
+
       const arr = actualPage?.content.split('\n');
       const indexes = simpleSearch(arr as string[]);
       setSelectedItem({

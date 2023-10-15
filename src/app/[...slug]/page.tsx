@@ -1,15 +1,27 @@
 import { Typography } from '@/components/mdx/typography';
-import { getMdxBySlug } from '@/lib/mdx';
+import { PageFromConfig, getMdxBySlug, getSideBarData } from '@/lib/mdx';
 import { redirect } from 'next/navigation';
 import config from '../../../public/starter-kit/zidocs.json';
 import { Metadata, ResolvingMetadata } from 'next';
+
+export async function generateStaticParams() {
+  const mdx = await getSideBarData();
+  const arr: { params: { slug: string } }[] = [];
+  mdx.forEach((group) => {
+    group.pages.forEach((page) => {
+      arr.push({ params: { slug: page.href } });
+    });
+  });
+
+  console.log(arr);
+  return arr;
+}
 
 export async function generateMetadata(
   { params }: { params: { slug: string[] } },
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const mdx = await getMdxBySlug(params.slug.join('/'));
-
   const parentTitle = (await parent).title?.absolute;
 
   return {
@@ -17,11 +29,7 @@ export async function generateMetadata(
   };
 }
 
-export default async function Content({
-  params,
-}: {
-  params: { slug: string[] };
-}) {
+export default async function Content({ params }: any) {
   const mdx = await getMdxBySlug(params.slug.join('/'));
 
   if (!mdx) {
