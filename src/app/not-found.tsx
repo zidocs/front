@@ -1,13 +1,11 @@
-'use client';
+// import config from '../../public/starter-kit/zidocs.json';
 
-import config from '../../public/starter-kit/zidocs.json';
-
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 export default function NotFound() {
-  useEffect(() => {
-    window.location.replace(`/${config.navigation[0].pages[0]}`);
-  });
+  // useEffect(() => {
+  //   window.location.replace(`/${config.navigation[0].pages[0]}`);
+  // });
 
-  return null;
+  return <div>NOT FOUND</div>;
 }

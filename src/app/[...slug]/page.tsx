@@ -16,7 +16,7 @@ export async function generateStaticParams() {
   });
 
   console.log(arr);
-  return [{ params: { slug: 'quickstart' } }];
+  return arr;
 }
 
 export async function generateMetadata(
