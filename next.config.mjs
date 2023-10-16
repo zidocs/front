@@ -1,5 +1,5 @@
 const nextConfig = {
-  output: 'export',
+  // output: 'export',
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: false,
 };
