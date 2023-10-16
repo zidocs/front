@@ -169,9 +169,11 @@ export function LeftSideBar({ data }: LeftSideBarProps) {
 
       const arr = actualPage?.content.split('\n');
       const indexes = simpleSearch(arr as string[]);
-      setSelectedItem({
-        id: slugify(arr?.[indexes[0].index].trim() as string),
-      });
+      if (indexes.length > 0) {
+        setSelectedItem({
+          id: slugify(arr?.[indexes[0].index].trim() as string),
+        });
+      }
     } catch (err) {
       console.error(err);
     }
@@ -181,25 +183,23 @@ export function LeftSideBar({ data }: LeftSideBarProps) {
     <ul className="fixed flex flex-col gap-1 text-sm">
       {result.map(({ href, name, children }) => {
         return (
-          <>
-            <li key={href}>
-              <Link
-                onClick={() => handleClick(href)}
-                className={cn(
-                  selectedItem?.id === href || selectedItem?.parentId === href
-                    ? 'leading-7 text-primary opacity-100'
-                    : 'leading-7 opacity-60 hover:opacity-80'
-                )}
-                id={href}
-                key={href}
-                href={`#${href}`}
-              >
-                {name}
-              </Link>
-            </li>
+          <li key={href}>
+            <Link
+              onClick={() => handleClick(href)}
+              className={cn(
+                selectedItem?.id === href || selectedItem?.parentId === href
+                  ? 'leading-7 text-primary opacity-100'
+                  : 'leading-7 opacity-60 hover:opacity-80'
+              )}
+              id={href}
+              key={href}
+              href={`#${href}`}
+            >
+              {name}
+            </Link>
             {children?.map((child) => {
               return (
-                <li key={child.href} className="pl-4">
+                <div key={child.href} className="pl-4">
                   <Link
                     onClick={() => handleClick(child.href, href)}
                     className={cn(
@@ -213,10 +213,10 @@ export function LeftSideBar({ data }: LeftSideBarProps) {
                   >
                     {child.name}
                   </Link>
-                </li>
+                </div>
               );
             })}
-          </>
+          </li>
         );
       })}
     </ul>

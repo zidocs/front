@@ -27,13 +27,9 @@ export default async function RootLayout({
 }) {
   const data = await getSideBarData();
 
-  if (!data) {
-    return <div>Loading</div>;
-  }
-
   return (
-    <html className="scroll-pt-24" lang="en">
-      <body className={cn(`${inter.className}`)}>
+    <html lang="en">
+      <body className={cn(`${inter.className} scroll-pt-24`)}>
         <span
           className="fixed inset-0"
           style={{

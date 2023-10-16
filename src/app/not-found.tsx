@@ -1,13 +1,12 @@
-'use client';
-
+import { redirect } from 'next/navigation';
 import config from '../../public/starter-kit/zidocs.json';
 
-import { useEffect } from 'react';
+import { RedirectType } from 'next/dist/client/components/redirect';
 
 export default function NotFound() {
-  useEffect(() => {
-    window.location.replace(`/${config.navigation[0].pages[0]}`);
-  });
-
-  return null;
+  if (config.navigation[0].pages[0]) {
+    redirect(`/${config.navigation[0].pages[0]}`, RedirectType.push);
+  } else {
+    return <h1>Not Found</h1>;
+  }
 }
