@@ -4,6 +4,8 @@ import { redirect } from 'next/navigation';
 import config from '../../../public/starter-kit/zidocs.json';
 import { Metadata, ResolvingMetadata } from 'next';
 
+export const dynamic = 'error';
+
 export async function generateStaticParams() {
   const mdx = await getSideBarData();
   const arr: { params: { slug: string } }[] = [];
@@ -14,7 +16,7 @@ export async function generateStaticParams() {
   });
 
   console.log(arr);
-  return arr;
+  return [{ params: { slug: 'quickstart' } }];
 }
 
 export async function generateMetadata(
@@ -29,7 +31,7 @@ export async function generateMetadata(
   };
 }
 
-export default async function Content({ params }: any) {
+export default async function Page({ params }: any) {
   const mdx = await getMdxBySlug(params.slug.join('/'));
 
   if (!mdx) {

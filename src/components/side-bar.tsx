@@ -8,6 +8,8 @@ import { usePathname } from 'next/navigation';
 import { Typography } from './mdx/typography';
 import { DataFromConfig, PageFromConfig } from '@/lib/mdx';
 
+export const dynamic = 'error';
+
 interface ISideBarSubItem extends PageFromConfig {
   onClick?: () => void;
 }

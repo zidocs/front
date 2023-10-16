@@ -6,6 +6,8 @@ import { cn, countOccur, slugify } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+export const dynamic = 'error';
+
 interface LeftSideBarProps {
   data: DataFromConfig[];
 }
