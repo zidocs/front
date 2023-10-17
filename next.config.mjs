@@ -1,5 +1,5 @@
 const nextConfig = {
-  trailingSlash: false,
+  trailingSlash: true,
   output: 'export',
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: false,
