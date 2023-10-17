@@ -5,6 +5,7 @@ import config from '../../../public/starter-kit/zidocs.json';
 import { Metadata, ResolvingMetadata } from 'next';
 import { slugify } from '../../lib/utils';
 
+export const dynamic = 'error';
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
@@ -15,6 +16,7 @@ export async function generateStaticParams() {
       arr.push({ slug: slugify(page.href) });
     });
   });
+  console.log(arr);
 
   return arr;
 }
