@@ -6,10 +6,12 @@ import { Search } from './ui/search';
 import { ChevronRight, Menu } from 'lucide-react';
 import { Sidebar } from './side-bar';
 import { usePathname } from 'next/navigation';
-import { DataFromConfig, getSideBarData } from '@/lib/mdx';
+import { DataFinal } from '@/lib/mdx';
+import { TabsMenu } from './tabs-menu';
+import { cn, getActualPage } from '@/lib/utils';
 
 interface NavBarProps {
-  data: DataFromConfig[];
+  data: DataFinal[];
   config: any;
 }
 export function NavBar({ data, config }: NavBarProps) {
@@ -22,11 +24,7 @@ export function NavBar({ data, config }: NavBarProps) {
       : (document.body.style.overflow = 'auto');
   }, [isOpen]);
 
-  const actualPage = data
-    .find((group) => {
-      return group.pages.find((page) => `/${page.href}` == pathname);
-    })
-    ?.pages.find((page) => `/${page.href}` == pathname);
+  let actualPage = getActualPage(data, pathname);
 
   return (
     <>
@@ -64,15 +62,30 @@ export function NavBar({ data, config }: NavBarProps) {
             <span>{actualPage?.title}</span>
           </div>
         </div>
+        <div className="border-b border-black border-opacity-5 px-4 dark:border-white dark:border-opacity-10 lg:px-12">
+          <TabsMenu className="hidden w-[13.5rem] lg:block" data={data} />
+        </div>
       </div>
 
       {isOpen && (
-        <Sidebar
-          className="py-6 pl-4 pr-8 lg:hidden"
-          data={data}
-          open={isOpen}
-          setOpen={setIsOpen}
-        />
+        <div
+          className={cn(
+            `${
+              isOpen
+                ? 'fixed bottom-0 left-0 top-0 z-40 m-0 block w-full bg-background'
+                : 'hidden'
+            }`,
+            'w-fit py-3 lg:hidden'
+          )}
+        >
+          <TabsMenu open={isOpen} setOpen={setIsOpen} data={data} />
+          <Sidebar
+            className="py-6 pl-4 pr-8 lg:hidden"
+            data={data}
+            open={isOpen}
+            setOpen={setIsOpen}
+          />
+        </div>
       )}
 
       {isOpen && (

@@ -6,7 +6,7 @@ import config from '../../public/starter-kit/zidocs.json';
 import { Sidebar } from '@/components/side-bar';
 import { cn } from '@/lib/utils';
 
-import { getSideBarData } from '@/lib/mdx';
+import { getAllData } from '@/lib/mdx';
 import { NavBar } from '@/components/nav-bar';
 import { LeftSideBar } from '@/components/left-side-bar';
 
@@ -25,12 +25,12 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const data = await getSideBarData();
+  const data = await getAllData();
 
   return (
     <html lang="en">
       <body className={cn(`${inter.className} scroll-pt-24`)}>
-        <span
+        {/* <span
           className="fixed inset-0"
           style={{
             backgroundImage: 'url(/starter-kit/images/lightbackground.png)',
@@ -38,21 +38,11 @@ export default async function RootLayout({
             backgroundPosition: 'top right',
             backgroundAttachment: 'fixed',
           }}
-        ></span>
+        ></span> */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <NavBar config={config} data={data} />
 
-          <div className="m-auto max-w-8xl">
-            <Sidebar className="fixed w-[18rem] lg:pl-8" data={data} />
-            <div className="flex justify-center gap-12 p-6  lg:pl-[20rem]">
-              <div className="relative w-full max-w-3xl grow overflow-hidden xl:max-w-[49rem] xl:pl-14">
-                {children}
-              </div>
-              <div className="hidden w-[19rem] flex-none pl-10 xl:flex">
-                <LeftSideBar data={data} />
-              </div>
-            </div>
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>

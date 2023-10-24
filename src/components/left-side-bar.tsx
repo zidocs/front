@@ -1,15 +1,15 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { DataFromConfig } from '@/lib/mdx';
-import { cn, countOccur, slugify } from '@/lib/utils';
+import { DataFinal, DataFromConfig, PageFromConfig } from '@/lib/mdx';
+import { cn, countOccur, getActualPage, slugify } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 export const dynamic = 'error';
 
 interface LeftSideBarProps {
-  data: DataFromConfig[];
+  data: DataFinal[];
 }
 
 interface LeftSideBarItem {
@@ -21,6 +21,7 @@ interface LeftSideBarItem {
 function simpleSearch(arr: string[]) {
   const indices = [];
   let lastTitleIndex = 0;
+
   for (let i = 0; i < arr.length; i++) {
     if (arr[i].indexOf('##') !== -1) {
       if (arr[i].indexOf('###') !== -1) {
@@ -44,6 +45,7 @@ function simpleSearch(arr: string[]) {
       }
     }
   }
+
   return indices;
 }
 
@@ -55,11 +57,7 @@ export function LeftSideBar({ data }: LeftSideBarProps) {
   } | null>();
   const [result, setResult] = useState<LeftSideBarItem[]>([]);
 
-  const actualPage = data
-    .find((group) => {
-      return group.pages.find((page) => `/${page.href}` == pathname);
-    })
-    ?.pages.find((page) => `/${page.href}` == pathname);
+  const actualPage = getActualPage(data, pathname);
 
   useEffect(() => {
     try {
@@ -73,17 +71,18 @@ export function LeftSideBar({ data }: LeftSideBarProps) {
 
       let names: string[] = [];
       const result = indexes.map(({ index, children }) => {
-        let href = slugify(arr?.[index].trim() as string);
-        let childArr: any = [];
-        if (children && children?.length > 0) {
-          childArr = children.map((index) => {
-            const href = slugify(arr?.[index].trim() as string);
-            return {
-              name: arr?.[index].replace(/^#+/, '').trim(),
-              href,
-            };
-          });
-        }
+        const originalName = arr?.[index].trim() as string;
+        let href = slugify(originalName);
+        const childArr =
+          children && children.length > 0
+            ? children.map((childIndex) => {
+                const childName = arr?.[childIndex]
+                  .replace(/^#+/, '')
+                  .trim() as string;
+                const childHref = slugify(childName);
+                return { name: childName, href: childHref };
+              })
+            : [];
 
         const count = countOccur(href, names);
         if (count > 0) {
@@ -92,7 +91,7 @@ export function LeftSideBar({ data }: LeftSideBarProps) {
         names.push(href);
 
         return {
-          name: arr?.[index].trim().replace(/[^a-zA-Z0-9]+/g, ' '),
+          name: originalName.replace(/[^a-zA-Z0-9]+/g, ' '),
           href,
           children: childArr,
         };

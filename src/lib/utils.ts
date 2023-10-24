@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import { DataFinal } from './mdx';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -13,13 +14,12 @@ export function capitalizeFirstLetter(string: string) {
 }
 
 export function slugify(input: string) {
-  const cleanedString = input.toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-');
-
-  const slug = cleanedString.replace(/-+/g, '-');
-
-  const slugReplaced = slug.replace(/^-+|-+$/g, '');
-
-  return slugReplaced.replace(/^\d+/, '').replace(/^[\d-]+/, '');
+  return input
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/^\d+/, '')
+    .replace(/^[\d-]+/, '');
 }
 
 export function countOccur(input: string, array: string[]) {
@@ -37,6 +37,26 @@ export function countOccur(input: string, array: string[]) {
   }
 
   return count;
+}
+
+export function getActualPage(data: DataFinal[], pathname: string) {
+  return data
+    .find((group) =>
+      group.groups.some((innerGroup) =>
+        innerGroup.pages.some((page) => `/${page.href}` === pathname)
+      )
+    )
+    ?.groups[0].pages.find((page) => `/${page.href}` === pathname);
+}
+
+export function getActualTab(data: DataFinal[], pathname: string) {
+  return (
+    data.find((group) =>
+      group.groups.some((innerGroup) =>
+        innerGroup.pages.some((page) => `/${page.href}` === pathname)
+      )
+    ) || data[0]
+  );
 }
 
 // TODO: Pesquisar sobre algoritmos para ajuda na pesquisa complexa

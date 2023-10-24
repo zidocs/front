@@ -16,6 +16,12 @@ export interface IMDXMeta {
   additionalProperties?: any;
 }
 
+export interface DataFinal {
+  tabName: string;
+  groups: DataFromConfig[];
+  groupsNames: string[];
+}
+
 export interface DataFromConfig {
   name: string;
   pages: PageFromConfig[];
@@ -75,8 +81,13 @@ export const getMdxMetaDataBySlug = async (
     const { frontmatter } = await compileMDX({
       source: fileContent,
       options: {
+        mdxOptions: {
+          //@ts-ignore
+          rehypePlugins: [rehypeHighlight],
+        },
         parseFrontmatter: true,
       },
+      components,
     });
 
     return {
@@ -88,7 +99,7 @@ export const getMdxMetaDataBySlug = async (
   }
 };
 
-export const getSideBarData = async () => {
+export const getAllData = async () => {
   const promisesArray = config.navigation.map(async ({ group, pages }) => {
     return Promise.all(
       pages.map(async (page) => {
@@ -99,23 +110,72 @@ export const getSideBarData = async () => {
   });
 
   const mdxData = await Promise.all(promisesArray);
-  const mdxDataFormatted = mdxData.map((arr) => {
-    const pages = arr.map(({ meta, content }: any) => {
-      return {
-        title: meta.title,
-        href: meta.filePath,
-        group: meta.group,
-        content,
-      };
-    });
+  const result: DataFinal[] = [
+    { tabName: 'Documentation', groups: [], groupsNames: [] },
+  ];
 
-    return {
-      name: arr[0]?.meta.group as string,
-      pages: pages,
-    };
+  if (config.tabs) {
+    config.tabs.forEach((tab) =>
+      result.push({
+        tabName: tab.name,
+        groups: [],
+        groupsNames: tab.groups ?? [],
+      })
+    );
+  }
+
+  mdxData.forEach((arr) => {
+    arr.forEach(({ meta, content }: any) => {
+      let haveATab = false;
+      result.forEach((tab) => {
+        tab.groupsNames?.forEach((groupName) => {
+          if (meta.group === groupName) {
+            let group = tab.groups.find((group) => group.name === groupName);
+
+            if (!group) {
+              group = {
+                name: groupName,
+                pages: [],
+              };
+              tab.groups.push(group);
+            }
+
+            group?.pages.push({
+              title: meta.title,
+              href: meta.filePath,
+              group: groupName,
+              content: content,
+            });
+            haveATab = true;
+          }
+        });
+      });
+      if (!haveATab) {
+        const targetTab = result[0];
+
+        let groupIndex = targetTab.groupsNames.indexOf(meta.group);
+
+        if (groupIndex === -1) {
+          targetTab.groupsNames.push(meta.group);
+          targetTab.groups.push({
+            name: meta.group,
+            pages: [],
+          });
+
+          groupIndex = targetTab.groupsNames.indexOf(meta.group);
+        }
+
+        targetTab.groups[groupIndex].pages.push({
+          title: meta.title,
+          href: meta.filePath,
+          group: meta.group,
+          content: content,
+        });
+      }
+    });
   });
 
-  return mdxDataFormatted;
+  return result;
 };
 
 export const getGroupName = (pageName: string) => {

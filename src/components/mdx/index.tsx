@@ -9,8 +9,9 @@ import {
   AccordionTrigger,
 } from '../ui/accordion';
 import type { AccordionSingleProps } from '@radix-ui/react-accordion';
-import { v4 as uuidv4 } from 'uuid';
 import { Github } from 'lucide-react';
+import Image from 'next/image';
+import { Picture } from '../ui/picture';
 
 export const components = {
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
@@ -81,10 +82,11 @@ export const components = {
   pre: ({ className, children, ...props }: any) => {
     return (
       <div>
-        <CopyButton
+        {/* TODO */
+        /* <CopyButton
           className="absolute right-0 z-10 p-5"
           value={children.props.children}
-        />
+        /> */}
         <pre
           className={cn(
             'mb-4 mt-6 max-h-[650px] overflow-x-auto rounded-lg border bg-white p-3 dark:bg-zinc-900',
@@ -123,7 +125,7 @@ export const components = {
     props: AccordionSingleProps & { icon: string; title: string }
   ) => (
     <Accordion type="single" collapsible className="w-full">
-      <AccordionItem value={uuidv4()}>
+      <AccordionItem value="1">
         <AccordionTrigger>
           {props.icon && (
             <span className="absolute">
@@ -136,4 +138,5 @@ export const components = {
       </AccordionItem>
     </Accordion>
   ),
+  Picture: (props: { src: string; alt: string }) => <Picture {...props} />,
 };

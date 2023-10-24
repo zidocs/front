@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Button } from './button';
-import { cn, complexSearch } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import {
   CommandDialog,
@@ -15,24 +15,24 @@ import {
 } from './command';
 import { FileText, SearchIcon } from 'lucide-react';
 import React from 'react';
-import { DataFromConfig } from '@/lib/mdx';
+import { DataFromConfig, DataFinal, PageFromConfig } from '@/lib/mdx';
 
 interface SearchProps {
-  data: DataFromConfig[];
+  data: DataFinal[];
 }
 
 export function Search({ data }: SearchProps) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = React.useState('');
-  const [filteredData, setFilteredData] = useState(data);
+  const [filteredData, setFilteredData] = useState<any>([]);
   const router = useRouter();
 
   useEffect(() => {
     const filterData = data
-      .map((group) => {
+      .map((tab) => {
         return {
-          name: group.name,
-          pages: group.pages.filter((page) =>
+          name: tab.groups[0].name,
+          pages: tab.groups[0].pages.filter((page) =>
             page.content.toLowerCase().includes(search.toLowerCase())
           ),
         };
@@ -75,16 +75,15 @@ export function Search({ data }: SearchProps) {
         <CommandList className="bg-background">
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandSeparator />
-          {filteredData.map((groups) => {
+          {filteredData.map((groups: any) => {
             return (
               <CommandGroup key={groups.name} heading={groups.name}>
-                {groups.pages.map((page: any) => {
-                  const searchResult = complexSearch(page.content, search);
+                {groups.pages.map((page: PageFromConfig) => {
                   return (
                     <CommandItem
                       key={page.href}
                       onSelect={() => {
-                        runCommand(() => router.push(page.href as string));
+                        runCommand(() => router.push(`/${page.href}`));
                       }}
                     >
                       <FileText className="mr-2 h-4 w-4" />

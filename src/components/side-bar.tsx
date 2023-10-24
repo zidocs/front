@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { usePathname } from 'next/navigation';
 import { Typography } from './mdx/typography';
-import { DataFromConfig, PageFromConfig } from '@/lib/mdx';
+import { DataFromConfig, PageFromConfig, DataFinal } from '@/lib/mdx';
 
 export const dynamic = 'error';
 
@@ -15,6 +15,10 @@ interface ISideBarSubItem extends PageFromConfig {
 }
 
 interface ISideBarItem extends DataFromConfig {
+  onClick?: () => void;
+}
+
+interface ISideBar extends DataFinal {
   onClick?: () => void;
 }
 
@@ -66,24 +70,33 @@ export function Sidebar({
   setOpen,
   className,
 }: {
-  data: ISideBarItem[];
+  data: ISideBar[];
   open?: boolean;
   setOpen?: (status: boolean) => void;
   className?: string;
 }) {
+  const pathname = usePathname();
+
+  const actualTab =
+    data.find((group) => {
+      const foundPageInGroups = group.groups.find((innerGroup) =>
+        innerGroup.pages.find((page) => `/${page.href}` === pathname)
+      );
+
+      return foundPageInGroups;
+    }) ?? data[0];
+
   return (
     <div
       className={cn(
         `${
-          open
-            ? 'fixed bottom-0 left-0 top-0 z-40 block bg-background'
-            : 'hidden'
+          !open && 'hidden'
         }  w-[18rem] transition-all lg:block lg:pt-6 lg:opacity-100 ${className}`
       )}
     >
       <div className="space-y-4">
         <ScrollArea className="flex h-[100vh] flex-col gap-4 pb-10">
-          {data.map((item: ISideBarItem) => {
+          {actualTab.groups.map((item: any) => {
             return (
               <SideBarItem
                 onClick={() => setOpen && setOpen(false)}
