@@ -114,7 +114,7 @@ export const getAllData = async () => {
     { tabName: 'Documentation', groups: [], groupsNames: [] },
   ];
 
-  if (config.tabs) {
+  if (config?.tabs) {
     config.tabs.forEach((tab) =>
       result.push({
         tabName: tab.name,
