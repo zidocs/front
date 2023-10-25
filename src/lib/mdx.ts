@@ -5,6 +5,32 @@ import { components } from '../components/mdx';
 import config from '../../public/starter-kit/zidocs.json';
 import rehypeHighlight from 'rehype-highlight';
 
+export const configTyped: {
+  name: string;
+  logo?: {
+    dark?: string;
+    light?: string;
+  };
+  favicon?: string;
+  colors: {
+    primary: string;
+    light: string;
+    dark: string;
+    background?: {
+      dark?: string;
+      light?: string;
+    };
+  };
+  navigation: {
+    group: string;
+    pages: string[];
+  }[];
+  tabs?: {
+    name: string;
+    groups: string[];
+  }[];
+} = config;
+
 export interface IMDXFile {
   MDXComponent: React.ReactNode;
   meta: IMDXMeta;
@@ -114,8 +140,8 @@ export const getAllData = async () => {
     { tabName: 'Documentation', groups: [], groupsNames: [] },
   ];
 
-  if (config.tabs) {
-    config.tabs.forEach((tab) =>
+  if (configTyped.tabs) {
+    configTyped.tabs.forEach((tab) =>
       result.push({
         tabName: tab.name,
         groups: [],
