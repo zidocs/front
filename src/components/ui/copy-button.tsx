@@ -4,7 +4,6 @@ import { ClipboardCheckIcon, Clipboard } from 'lucide-react';
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
 import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
 
 interface CopyButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   value: string;
@@ -15,16 +14,17 @@ export function CopyButton({ value, className }: CopyButtonProps) {
   const [isCopied, setIsCopied] = useState(false);
 
   return (
-    <motion.span
-      whileHover={{ scale: 1.5 }}
-      whileTap={{ scale: 1.2 }}
-      className={cn('cursor-pointer text-opacity-20', className)}
+    <span
+      className={cn(
+        'cursor-pointer text-opacity-20 hover:text-opacity-40',
+        className
+      )}
       onClick={() => {
         copy(value.trim());
 
         setTimeout(() => {
           setIsCopied(false);
-        }, 3000);
+        }, 1500);
 
         setIsCopied(true);
       }}
@@ -37,6 +37,6 @@ export function CopyButton({ value, className }: CopyButtonProps) {
           size="18"
         />
       )}
-    </motion.span>
+    </span>
   );
 }

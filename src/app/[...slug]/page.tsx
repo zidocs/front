@@ -73,7 +73,7 @@ export default async function Page({ params }: any) {
           </div>
         </div>
         <div className="hidden w-[19rem] flex-none pl-10 xl:flex">
-          <LeftSideBar data={data} />
+          <LeftSideBar data={data} toc={mdx.meta.toc} />
         </div>
       </div>
     </div>

@@ -1,6 +1,9 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { DataFinal } from './mdx';
+import { toString } from 'mdast-util-to-string';
+import { visit } from 'unist-util-visit';
+import { headingRank as rank } from 'hast-util-heading-rank';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -14,12 +17,15 @@ export function capitalizeFirstLetter(string: string) {
 }
 
 export function slugify(input: string) {
-  return input
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .replace(/^\d+/, '')
-    .replace(/^[\d-]+/, '');
+  return removeEmoji(
+    input
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .replace(/^\d+/, '')
+      .replace(/^[\d-]+/, '')
+      .trim()
+  );
 }
 
 export function countOccur(input: string, array: string[]) {
@@ -57,6 +63,21 @@ export function getActualTab(data: DataFinal[], pathname: string) {
       )
     ) || data[0]
   );
+}
+
+export function removeEmoji(word: string | string[]) {
+  let str = word;
+
+  if (!Array.isArray(word)) {
+    str = (str as string).split(' ');
+  }
+  str = (str as string[]).filter(
+    (item) => !item.startsWith(':') || !item.endsWith(':')
+  );
+
+  str = (str.join(' ') as string).replace(/[^\p{L}\p{N}\p{P}\p{Z}^$\n]/gu, '');
+
+  return str.trim();
 }
 
 // TODO: Pesquisar sobre algoritmos para ajuda na pesquisa complexa
@@ -102,3 +123,60 @@ export function complexSearch(text: string, input: string) {
 
   return result.join(' ');
 }
+
+interface IHeading {
+  depth: number;
+  value: string;
+  id?: any;
+}
+
+export const rehypeNestedHeadings = ({
+  headings,
+}: {
+  headings: IHeading[];
+}) => {
+  return (tree: any) => {
+    visit(tree, 'element', onHeading);
+
+    headings = createTree(headings) || [];
+  };
+
+  function onHeading(node: any) {
+    const level = rank(node);
+
+    if (level != null) {
+      const heading: IHeading = {
+        depth: level,
+        value: toString(node),
+      };
+      if (node.properties !== undefined && node.properties.id != null) {
+        heading.id = node.properties.id;
+      }
+      headings.push(heading);
+    }
+  }
+
+  function createTree(headings: IHeading[]) {
+    const root = { depth: 0, children: [] };
+    const parents: any = [];
+    let previous = root;
+
+    headings.forEach((heading, i, arr) => {
+      if (heading.depth > previous.depth) {
+        if (previous.children === undefined) {
+          previous.children = [];
+        }
+        parents.push(previous);
+      } else if (heading.depth < previous.depth) {
+        while (parents[parents.length - 1].depth >= heading.depth) {
+          parents.pop();
+        }
+      }
+
+      parents[parents.length - 1].children.push(heading);
+      previous = heading as any;
+    });
+
+    return root.children;
+  }
+};

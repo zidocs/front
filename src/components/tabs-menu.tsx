@@ -33,8 +33,8 @@ export function TabsMenu({
     >
       <TabsList
         className={cn(
-          `${open && 'flex flex-col items-start py-8 pl-8'}`,
-          'flex gap-2 bg-transparent lg:gap-4'
+          `${open && 'flex-col items-start py-8 pl-8'}`,
+          'flex justify-start gap-2 bg-transparent p-6 pl-[1.65rem] lg:gap-4'
         )}
       >
         {data.map((tab: DataFinal) => {
@@ -42,7 +42,7 @@ export function TabsMenu({
           return (
             <Link key={firstPageHref} href={firstPageHref}>
               <TabsTrigger
-                className="text-normal pl-0 font-normal tracking-wide"
+                className="text-normal pl-0 font-normal tracking-wide data-[state=active]:text-foreground data-[state=active]:underline data-[state=active]:decoration-primary data-[state=active]:underline-offset-[1.165rem] data-[state=inactive]:hover:underline data-[state=inactive]:hover:decoration-zinc-200 data-[state=inactive]:hover:underline-offset-[1.165rem] dark:data-[state=inactive]:hover:decoration-zinc-700"
                 onClick={() => setOpen && setOpen(false)}
                 value={slugify(tab.tabName)}
               >

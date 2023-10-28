@@ -12,14 +12,23 @@ import type { AccordionSingleProps } from '@radix-ui/react-accordion';
 import { Github } from 'lucide-react';
 import Image from 'next/image';
 import { Picture } from '../ui/picture';
+import { v4 as uuidV4 } from 'uuid';
 
+const generateUuid = (str: any) => {
+  let id: string[] | string = [uuidV4()];
+
+  if (!Array.isArray(str)) {
+    id = (str as string).split(' ');
+  }
+  id = (str as string[]).join('-').toLowerCase();
+
+  return id;
+};
 export const components = {
   h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
-    const id = (props.children as string).split(' ').join('-').toLowerCase();
     return (
       <Typography
-        className="-mt-24 pt-24 tracking-wide"
-        id={slugify(id)}
+        className="scroll-mt-36 tracking-wide"
         variant="h1"
         tag="h1"
         {...props}
@@ -29,11 +38,9 @@ export const components = {
     );
   },
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
-    const id = (props.children as string).split(' ').join('-').toLowerCase();
     return (
       <Typography
-        className="mb-3 mt-8 tracking-wide"
-        id={slugify(id)}
+        className="mb-3 mt-8 scroll-mt-36 tracking-wide"
         variant="h2"
         tag="h2"
         {...props}
@@ -43,11 +50,9 @@ export const components = {
     );
   },
   h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
-    const id = (props.children as string).split(' ').join('-').toLowerCase();
     return (
       <Typography
-        className="mb-4 mt-10 font-normal tracking-wide"
-        id={slugify(id)}
+        className="mb-4 mt-10 scroll-mt-36 font-normal tracking-wide"
         variant="h3"
         tag="h3"
         {...props}
@@ -59,7 +64,7 @@ export const components = {
   p: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
     return (
       <Typography
-        className="-mt-24 pt-24 font-light tracking-wide"
+        className="font-light tracking-wide"
         variant="p"
         tag="p"
         {...props}
@@ -82,14 +87,13 @@ export const components = {
   pre: ({ className, children, ...props }: any) => {
     return (
       <div>
-        {/* TODO */
-        /* <CopyButton
+        <CopyButton
           className="absolute right-0 z-10 p-5"
-          value={children.props.children}
-        /> */}
+          value={'children.props.children'}
+        />
         <pre
           className={cn(
-            'mb-4 mt-6 max-h-[650px] overflow-x-auto rounded-lg border bg-white p-3 dark:bg-zinc-900',
+            'mb-4 mt-6 max-h-[650px] overflow-x-auto rounded-xl border bg-white px-5 py-5 dark:bg-stone-950',
             className
           )}
           {...props}
@@ -101,10 +105,7 @@ export const components = {
   },
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
     <code
-      className={cn(
-        'relative rounded text-sm text-black dark:text-white',
-        className
-      )}
+      className={cn('relative rounded text-sm tracking-wider', className)}
       {...props}
     />
   ),

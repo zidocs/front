@@ -4,6 +4,11 @@ import { compileMDX } from 'next-mdx-remote/rsc';
 import { components } from '../components/mdx';
 import config from '../../public/starter-kit/zidocs.json';
 import rehypeHighlight from 'rehype-highlight';
+import rehypeSlug from 'rehype-slug';
+import remarkGfm from 'remark-gfm';
+import emoji from 'remark-emoji';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import { rehypeNestedHeadings } from './utils';
 
 export const configTyped: {
   name: string;
@@ -31,6 +36,24 @@ export const configTyped: {
   }[];
 } = config;
 
+const rehypePlugins = [
+  rehypeHighlight,
+  rehypeSlug,
+  [
+    rehypeAutolinkHeadings,
+    {
+      behaviour: 'append',
+      properties: {
+        ariaHidden: true,
+        tabIndex: -1,
+        className: 'hash-link',
+      },
+    },
+  ],
+  emoji,
+];
+const remarkPlugins = [remarkGfm];
+
 export interface IMDXFile {
   MDXComponent: React.ReactNode;
   meta: IMDXMeta;
@@ -39,6 +62,7 @@ export interface IMDXFile {
 export interface IMDXMeta {
   title: string;
   description: string;
+  toc: any;
   additionalProperties?: any;
 }
 
@@ -71,14 +95,23 @@ export const getMdxBySlug = async (
     const fileContent = fs.readFileSync(`${FOLDER_PATH}/${fileSlug}.mdx`, {
       encoding: 'utf-8',
     });
+    const headings: any[] = [];
     const { frontmatter, content } = await compileMDX({
       source: fileContent,
       options: {
+        parseFrontmatter: true,
         mdxOptions: {
           //@ts-ignore
-          rehypePlugins: [rehypeHighlight],
+          rehypePlugins: [
+            //@ts-ignore
+            ...rehypePlugins,
+            //@ts-ignore
+            [rehypeNestedHeadings, { headings }],
+          ],
+
+          //@ts-ignore
+          remarkPlugins,
         },
-        parseFrontmatter: true,
       },
       components,
     });
@@ -86,7 +119,12 @@ export const getMdxBySlug = async (
     const groupName = getGroupName(slug);
 
     return {
-      meta: { ...frontmatter, ...additionalProperties, groupName },
+      meta: {
+        ...frontmatter,
+        ...additionalProperties,
+        groupName,
+        toc: headings,
+      },
       content,
     };
   } catch (err) {
@@ -104,14 +142,16 @@ export const getMdxMetaDataBySlug = async (
       encoding: 'utf-8',
     });
 
-    const { frontmatter } = await compileMDX({
+    const { frontmatter, ...toc } = await compileMDX({
       source: fileContent,
       options: {
+        parseFrontmatter: true,
         mdxOptions: {
           //@ts-ignore
-          rehypePlugins: [rehypeHighlight],
+          rehypePlugins,
+          //@ts-ignore
+          remarkPlugins,
         },
-        parseFrontmatter: true,
       },
       components,
     });

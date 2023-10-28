@@ -62,8 +62,8 @@ export function NavBar({ data, config }: NavBarProps) {
             <span>{actualPage?.title}</span>
           </div>
         </div>
-        <div className="border-b border-black border-opacity-5 px-4 dark:border-white dark:border-opacity-10 lg:px-12">
-          <TabsMenu className="hidden w-[13.5rem] lg:block" data={data} />
+        <div className="border-b border-black border-opacity-5 px-4 dark:border-white dark:border-opacity-10">
+          <TabsMenu className="hidden lg:block" data={data} />
         </div>
       </div>
 
