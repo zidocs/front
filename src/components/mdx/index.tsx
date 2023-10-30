@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from './typography';
-import { baseColor, cn, slugify } from '@/lib/utils';
+import { baseTextColor, cn, slugify } from '@/lib/utils';
 import { CopyButton } from '../ui/copy-button';
 import {
   Accordion,
@@ -10,9 +10,16 @@ import {
 } from '../ui/accordion';
 import type { AccordionSingleProps } from '@radix-ui/react-accordion';
 import { Github } from 'lucide-react';
-import Image from 'next/image';
 import { Picture } from '../ui/picture';
 import { v4 as uuidV4 } from 'uuid';
+import {
+  CalloutBoxProps,
+  Check,
+  Note,
+  Tip,
+  Warning,
+  Info,
+} from '../ui/callout-box';
 
 const generateUuid = (str: any) => {
   let id: string[] | string = [uuidV4()];
@@ -40,7 +47,7 @@ export const components = {
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
     return (
       <Typography
-        className="mb-3 mt-8 scroll-mt-36 tracking-wide"
+        className="mb-6 mt-12 scroll-mt-36 tracking-wide"
         variant="h2"
         tag="h2"
         {...props}
@@ -52,7 +59,7 @@ export const components = {
   h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
     return (
       <Typography
-        className="mb-4 mt-10 scroll-mt-36 font-normal tracking-wide"
+        className="mb-4 mt-12 scroll-mt-36 font-bold tracking-wide"
         variant="h3"
         tag="h3"
         {...props}
@@ -93,7 +100,7 @@ export const components = {
         />
         <pre
           className={cn(
-            'mb-4 mt-6 max-h-[650px] overflow-x-auto rounded-xl border bg-white px-5 py-5 dark:bg-stone-950',
+            'mb-4 max-h-[650px] overflow-x-auto rounded-xl border border-opacity-25 bg-white px-3 py-4 dark:bg-zinc-950',
             className
           )}
           {...props}
@@ -116,7 +123,7 @@ export const components = {
   ),
   li: (props: React.HTMLAttributes<HTMLLIElement>) => (
     <li
-      className={cn('my-2 text-base font-light tracking-wide', baseColor)}
+      className={cn('my-2 text-base font-light tracking-wide', baseTextColor)}
       {...props}
     >
       {props.children}
@@ -139,5 +146,11 @@ export const components = {
       </AccordionItem>
     </Accordion>
   ),
-  Picture: (props: { src: string; alt: string }) => <Picture {...props} />,
+  Picture: Picture,
+  // Callout Boxes
+  Note: Note,
+  Warning: Warning,
+  Info: Info,
+  Tip: Tip,
+  Check: Check,
 };

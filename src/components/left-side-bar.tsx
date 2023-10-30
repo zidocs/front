@@ -2,13 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { DataFinal, DataFromConfig, PageFromConfig } from '@/lib/mdx';
-import {
-  cn,
-  countOccur,
-  getActualPage,
-  removeEmoji,
-  slugify,
-} from '@/lib/utils';
+import { cn, getActualPage } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Button } from './ui/button';
@@ -57,6 +51,26 @@ export function LeftSideBar({ data, toc }: LeftSideBarProps) {
       console.log(err);
     }
   }, [toc, actualPage]);
+
+  useEffect(() => {
+    try {
+      const result = toc.map(({ depth, value, id }: any) => {
+        return {
+          name: value,
+          href: id,
+          depth: depth,
+        };
+      });
+
+      setSelectedItem({
+        id: result[0].href,
+      });
+
+      setResult([...result]);
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
 
   const handleScroll = () => {
     const sections: {

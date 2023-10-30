@@ -5,6 +5,7 @@ import config from '../../../public/starter-kit/zidocs.json';
 import { Metadata, ResolvingMetadata } from 'next';
 import { Sidebar } from '@/components/side-bar';
 import { LeftSideBar } from '@/components/left-side-bar';
+import { Check, Info, Note, Tip, Warning } from '@/components/ui/callout-box';
 
 export const dynamic = 'error';
 export const dynamicParams = false;

@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const baseColor =
+export const baseTextColor =
   'text-opacity-70 text-black dark:text-white dark:text-opacity-70';
 
 export function capitalizeFirstLetter(string: string) {
