@@ -3,12 +3,12 @@ import path from 'path';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import { components } from '../components/mdx';
 import config from '../../public/starter-kit/zidocs.json';
-import rehypeHighlight from 'rehype-highlight';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import emoji from 'remark-emoji';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import { rehypeNestedHeadings } from './utils';
+import { rehypeNestedHeadings, rehypePreRaw, rehypeRaw } from './utils';
+import rehypePrettyCode from 'rehype-pretty-code';
 
 export const configTyped: {
   name: string;
@@ -37,7 +37,15 @@ export const configTyped: {
 } = config;
 
 const rehypePlugins = [
-  rehypeHighlight,
+  rehypeRaw,
+  [
+    rehypePrettyCode,
+    {
+      theme: { dark: 'dracula', light: 'vitesse-light' },
+      keepBackground: false,
+      defaultLang: 'plaintext',
+    },
+  ],
   rehypeSlug,
   [
     rehypeAutolinkHeadings,
@@ -50,6 +58,7 @@ const rehypePlugins = [
       },
     },
   ],
+  rehypePreRaw,
   emoji,
 ];
 const remarkPlugins = [remarkGfm];

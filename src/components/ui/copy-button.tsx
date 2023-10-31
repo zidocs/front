@@ -2,16 +2,24 @@
 
 import { ClipboardCheckIcon, Clipboard } from 'lucide-react';
 import React, { useState } from 'react';
-import copy from 'clipboard-copy';
 import { cn } from '@/lib/utils';
 
 interface CopyButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  value: string;
+  text: string;
   className?: string;
 }
 
-export function CopyButton({ value, className }: CopyButtonProps) {
+export function CopyButton({ text, className }: CopyButtonProps) {
   const [isCopied, setIsCopied] = useState(false);
+
+  const copy = async () => {
+    await navigator.clipboard.writeText(text);
+    setIsCopied(true);
+
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 10000);
+  };
 
   return (
     <span
@@ -20,7 +28,7 @@ export function CopyButton({ value, className }: CopyButtonProps) {
         className
       )}
       onClick={() => {
-        copy(value.trim());
+        copy();
 
         setTimeout(() => {
           setIsCopied(false);

@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/lib/utils';
+import { baseTextColor, cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -32,16 +32,17 @@ function SideBarSubItem({ title, href, onClick }: ISideBarSubItem) {
         buttonVariants({
           variant: 'ghost',
         }),
+        baseTextColor,
         `h-10 w-full justify-start font-normal tracking-wide hover:bg-muted hover:bg-opacity-10 lg:h-8`,
         pathname === `/${href}` &&
-          'bg-muted bg-opacity-10 text-primary opacity-100 hover:bg-opacity-10 hover:text-primary'
+          'bg-muted bg-opacity-10 text-primary opacity-100 hover:bg-opacity-10 hover:text-primary dark:text-primary'
       )}
       onClick={onClick}
     >
       <Typography
         variant="span"
         className={cn(
-          `text-md font-light dark:opacity-40 lg:text-sm`,
+          `text-base font-light dark:opacity-70 lg:text-sm`,
           pathname === `/${href}` && 'font-medium dark:opacity-100'
         )}
       >

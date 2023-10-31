@@ -6,6 +6,7 @@ import {
   Info,
   Lightbulb,
   TerminalSquare,
+  BookOpen,
 } from 'lucide-react';
 
 interface IconProps {
@@ -16,7 +17,8 @@ interface IconProps {
     | 'alertTriangle'
     | 'info'
     | 'lightBulb'
-    | 'check';
+    | 'check'
+    | 'bookOpen';
   className?: string;
   size?: string | number;
   strokeWidth?: string | number;
@@ -32,6 +34,7 @@ const Icon = ({ name, ...props }: IconProps) => {
     info: <Info {...props} />,
     lightBulb: <Lightbulb {...props} />,
     check: <Check {...props} />,
+    bookOpen: <BookOpen {...props} />,
   };
 
   return Icons[name];

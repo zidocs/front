@@ -1,4 +1,4 @@
-import { cn } from '../../lib/utils';
+import { baseTextColor, cn } from '../../lib/utils';
 import { cva } from 'class-variance-authority';
 import * as React from 'react';
 
@@ -11,7 +11,7 @@ const typographyVariants = cva('', {
       h4: 'text-lg',
       h5: 'text-base',
       h6: 'text-sm',
-      p: 'text-base opacity-70 my-2',
+      p: 'text-base opacity-80 my-2',
       span: 'text-base',
     },
   },

@@ -11,70 +11,32 @@
   }
 }
 
-@layer code {
-  .hljs {
-    @apply block overflow-x-auto p-2;
+@layer highlight {
+  pre[data-theme='light'] {
+    @apply block dark:hidden;
   }
 
-  .hljs-built_in,
-  .hljs-selector-tag,
-  .hljs-section,
-  .hljs-link {
-    @apply text-[#8be9fd];
+  pre[data-theme='dark'] {
+    @apply hidden dark:block;
   }
 
-  .hljs-keyword {
-    @apply text-[#cb2439] dark:text-[#ff79c6];
+  code:is(:not(pre) > code[data-theme='light']) {
+    @apply inline dark:hidden;
   }
 
-  .hljs,
-  .hljs-subst {
-    @apply text-black dark:text-[#f8f8f2];
+  code:is(:not(pre) > code[data-theme='dark']) {
+    @apply hidden dark:inline;
   }
 
-  .hljs-title,
-  .hljs-attr,
-  .hljs-meta-keyword {
-    @apply italic text-[#5b28b4] dark:text-[#50fa7b];
+  pre[data-theme='light'] > code > span > span[data-highlighted-chars=''] {
+    color: #9e8bfd !important;
   }
 
-  .hljs-string,
-  .hljs-meta,
-  .hljs-name,
-  .hljs-type,
-  .hljs-symbol,
-  .hljs-bullet,
-  .hljs-addition,
-  .hljs-variable,
-  .hljs-template-tag,
-  .hljs-template-variable {
-    @apply text-[#1f762cb4] dark:text-[#f1fa8c];
+  pre[data-theme='dark'] > code > span > span[data-highlighted-chars=''] {
+    color: #8be9fd !important;
   }
 
-  .hljs-comment,
-  .hljs-quote,
-  .hljs-deletion {
-    @apply text-[#6272a4];
-  }
-
-  .hljs-keyword,
-  .hljs-selector-tag,
-  .hljs-literal,
-  .hljs-title,
-  .hljs-section,
-  .hljs-doctag,
-  .hljs-type,
-  .hljs-name,
-  .hljs-strong {
-    @apply font-semibold;
-  }
-
-  .hljs-literal,
-  .hljs-number {
-    @apply text-[#bd93f9];
-  }
-
-  .hljs-emphasis {
-    @apply italic;
+  code:is(:not(pre) > code) {
+    @apply before:!content-none after:!content-none dark:before:!content-none;
   }
 }

@@ -11,7 +11,7 @@ const CalloutBox = (props: CalloutBoxProps) => {
   return (
     <div
       className={cn(
-        'mb-4 flex w-full items-center gap-3 rounded-xl border-[0.1px] bg-opacity-5 p-4 px-4 text-sm dark:bg-opacity-20',
+        'flex w-full items-center gap-3 rounded-xl border-[0.1px] bg-opacity-5 p-4 px-4 text-sm dark:bg-opacity-20',
         baseTextColor,
         props.className
       )}

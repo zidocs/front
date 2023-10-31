@@ -4,13 +4,13 @@ import { DataFinal } from './mdx';
 import { toString } from 'mdast-util-to-string';
 import { visit } from 'unist-util-visit';
 import { headingRank as rank } from 'hast-util-heading-rank';
+import React, { ReactNode } from 'react';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const baseTextColor =
-  'text-opacity-70 text-black dark:text-white dark:text-opacity-70';
+export const baseTextColor = 'dark:text-zinc-100 text-zinc-600';
 
 export function capitalizeFirstLetter(string: string) {
   return string[0].toUpperCase() + string.slice(1);
@@ -47,12 +47,9 @@ export function countOccur(input: string, array: string[]) {
 
 export function getActualPage(data: DataFinal[], pathname: string) {
   return data
-    .find((group) =>
-      group.groups.some((innerGroup) =>
-        innerGroup.pages.some((page) => `/${page.href}` === pathname)
-      )
-    )
-    ?.groups[0].pages.find((page) => `/${page.href}` === pathname);
+    .flatMap((group) => group.groups)
+    .flatMap((innerGroup) => innerGroup.pages)
+    .find((page) => `/${page.href}` === pathname);
 }
 
 export function getActualTab(data: DataFinal[], pathname: string) {
@@ -180,3 +177,38 @@ export const rehypeNestedHeadings = ({
     return root.children;
   }
 };
+
+export const rehypePreRaw = () => {
+  return (tree: any) => {
+    visit(tree, (node) => {
+      if (node?.type === 'element' && node?.tagName === 'div') {
+        if (!('data-rehype-pretty-code-fragment' in node.properties)) {
+          return;
+        }
+
+        for (const child of node.children) {
+          if (child.tagName === 'pre') {
+            child.properties['raw'] = node.raw;
+          }
+        }
+      }
+    });
+  };
+};
+
+export const rehypeRaw = () => {
+  return (tree: any) => {
+    visit(tree, (node) => {
+      if (node?.type === 'element' && node?.tagName === 'pre') {
+        const [codeEl] = node.children;
+
+        if (codeEl.tagName !== 'code') return;
+
+        node.raw = codeEl.children?.[0].value;
+      }
+    });
+  };
+};
+
+export const hasOnlyOneChild = (children: ReactNode) =>
+  React.Children.count(children) === 1;

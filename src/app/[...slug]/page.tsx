@@ -5,7 +5,7 @@ import config from '../../../public/starter-kit/zidocs.json';
 import { Metadata, ResolvingMetadata } from 'next';
 import { Sidebar } from '@/components/side-bar';
 import { LeftSideBar } from '@/components/left-side-bar';
-import { Check, Info, Note, Tip, Warning } from '@/components/ui/callout-box';
+import { baseTextColor, cn } from '@/lib/utils';
 
 export const dynamic = 'error';
 export const dynamicParams = false;
@@ -70,7 +70,14 @@ export default async function Page({ params }: any) {
                 {mdx.meta.description}
               </Typography>
             </div>
-            <article className="prose">{mdx.content}</article>
+            <article
+              className={cn(
+                baseTextColor,
+                'prose prose-zinc dark:prose-invert prose-code:py-2 prose-h3:mt-12 relative mt-8'
+              )}
+            >
+              {mdx.content}
+            </article>
           </div>
         </div>
         <div className="hidden w-[19rem] flex-none pl-10 xl:flex">
