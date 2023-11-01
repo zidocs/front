@@ -43,6 +43,9 @@ module.exports = {
       maxWidth: {
         '8xl': '92rem',
       },
+      fontFamily: {
+        firacode: ['Fira Code', 'sans-serif'],
+      },
     },
   },
   plugins: [

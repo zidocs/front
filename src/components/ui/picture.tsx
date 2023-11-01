@@ -44,7 +44,7 @@ const Picture = (
       {...props}
       width={0}
       height={0}
-      className="rounded-lg"
+      className="!rounded-4xl"
       layout="responsive"
     />
   );

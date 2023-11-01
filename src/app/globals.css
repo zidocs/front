@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
 
 @layer base {
   * {
@@ -8,6 +9,19 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer heading {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  h7,
+  p {
+    @apply scroll-mt-36 tracking-wide;
   }
 }
 
@@ -29,7 +43,7 @@
   }
 
   pre[data-theme='light'] > code > span > span[data-highlighted-chars=''] {
-    color: #9e8bfd !important;
+    color: #1e0a82 !important;
   }
 
   pre[data-theme='dark'] > code > span > span[data-highlighted-chars=''] {
@@ -38,5 +52,6 @@
 
   code:is(:not(pre) > code) {
     @apply before:!content-none after:!content-none dark:before:!content-none;
+    @apply rounded-lg !border border-zinc-200 bg-zinc-50 !px-[0.3rem] !py-[0.3rem] !font-bold !tracking-widest dark:border-zinc-700 dark:bg-zinc-950;
   }
 }

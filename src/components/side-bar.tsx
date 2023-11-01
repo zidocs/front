@@ -92,7 +92,7 @@ export function Sidebar({
       className={cn(
         `${
           !open && 'hidden'
-        }  w-[18rem] transition-all lg:block lg:pt-6 lg:opacity-100 ${className}`
+        }  w-[20rem] transition-all lg:block lg:w-[18rem] lg:pt-6 lg:opacity-100 ${className}`
       )}
     >
       <div className="space-y-4">

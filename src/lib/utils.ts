@@ -10,7 +10,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const baseTextColor = 'dark:text-zinc-100 text-zinc-600';
+export const baseTextColor = 'dark:text-zinc-400 text-zinc-600';
 
 export function capitalizeFirstLetter(string: string) {
   return string[0].toUpperCase() + string.slice(1);

@@ -34,7 +34,7 @@ export function TabsMenu({
     >
       <TabsList
         className={cn(
-          `${open && 'h-fit w-full flex-col items-start py-8 pl-8 font-bold'}`,
+          `${open && 'h-fit w-full flex-col items-start py-8 pl-8 !font-bold'}`,
           'flex justify-start gap-2 bg-transparent p-6 pl-[1.65rem] lg:gap-4'
         )}
       >
@@ -53,8 +53,7 @@ export function TabsMenu({
                       ? 'flex gap-2 text-base font-semibold data-[state=active]:text-primary data-[state=inactive]:opacity-70 data-[state=inactive]:hover:opacity-90  data-[state=active]:dark:text-primary [&>svg]:hover:text-primary'
                       : 'data-[state=active]:text-foreground data-[state=inactive]:text-opacity-70 data-[state=active]:underline data-[state=active]:decoration-primary data-[state=active]:underline-offset-[1.165rem] data-[state=inactive]:hover:text-opacity-90 data-[state=inactive]:hover:underline data-[state=inactive]:hover:decoration-zinc-200 data-[state=inactive]:hover:underline-offset-[1.165rem] data-[state=inactive]:dark:text-opacity-70 data-[state=inactive]:dark:hover:text-opacity-90  dark:data-[state=inactive]:hover:decoration-zinc-700'
                   }`,
-                  'text-normal pl-0 font-normal tracking-wide hover:text-opacity-70',
-                  baseTextColor
+                  'text-normal pl-0 font-normal tracking-wide hover:text-opacity-70'
                 )}
                 onClick={() => setOpen && setOpen(false)}
                 value={slugify(tab.tabName)}

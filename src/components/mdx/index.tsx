@@ -14,38 +14,10 @@ import { Picture } from '../ui/picture';
 import { Check, Note, Tip, Warning, Info } from '../ui/callout-box';
 
 export const components = {
-  h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
-    return (
-      <h1 className="scroll-mt-36 tracking-wide" {...props}>
-        {props.children}
-      </h1>
-    );
-  },
-  h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
-    return (
-      <h2 className="scroll-mt-36 tracking-wide" {...props}>
-        {props.children}
-      </h2>
-    );
-  },
-  h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
-    return (
-      <h3 className="scroll-mt-36 font-semibold tracking-wide " {...props}>
-        {props.children}
-      </h3>
-    );
-  },
-  p: (props: React.HTMLAttributes<HTMLHeadingElement>) => {
-    return (
-      <p className="font-light tracking-wide" {...props}>
-        {props.children}
-      </p>
-    );
-  },
   a: (props: React.HTMLAttributes<HTMLAnchorElement>) => {
     return (
       <a
-        className="border-b-[1px] border-primary text-black hover:border-b-2 dark:text-white"
+        className="tracking-wider text-black decoration-primary hover:border-0 dark:text-white"
         {...props}
         target="_blank"
       >
@@ -66,7 +38,7 @@ export const components = {
         )}
       >
         <pre
-          className="max-h-[650px] w-full overflow-x-auto rounded-xl border bg-white px-4 py-4 dark:border-zinc-300 dark:border-opacity-20 dark:bg-zinc-950"
+          className="max-h-[650px] w-full overflow-x-auto rounded-xl border bg-white px-4 py-3 pr-10 dark:border-zinc-300 dark:border-opacity-20 dark:bg-zinc-950 [&>code]:overflow-scroll"
           {...props}
         >
           {children}
@@ -76,17 +48,10 @@ export const components = {
     );
   },
   code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <code className={cn('text-sm tracking-wider', className)} {...props} />
-  ),
-  ol: (props: React.HTMLAttributes<HTMLOListElement>) => (
-    <ol className="list-inside list-decimal" {...props}>
-      {props.children}
-    </ol>
-  ),
-  li: (props: React.HTMLAttributes<HTMLLIElement>) => (
-    <li className={cn('font-light tracking-wide', baseTextColor)} {...props}>
-      {props.children}
-    </li>
+    <code
+      className={cn('!font-firacode tracking-wider', className)}
+      {...props}
+    />
   ),
   Accordion: (
     props: AccordionSingleProps & { icon: string; title: string }
@@ -105,7 +70,6 @@ export const components = {
       </AccordionItem>
     </Accordion>
   ),
-  Picture: Picture,
   // Callout Boxes
   Note: Note,
   Warning: Warning,

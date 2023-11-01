@@ -65,7 +65,7 @@ export default async function Page({ params }: any) {
               <Typography
                 variant="h4"
                 tag="h2"
-                className="py-4 font-light opacity-70"
+                className="font-light opacity-70"
               >
                 {mdx.meta.description}
               </Typography>
@@ -73,7 +73,7 @@ export default async function Page({ params }: any) {
             <article
               className={cn(
                 baseTextColor,
-                'prose prose-zinc dark:prose-invert prose-code:py-2 prose-h3:mt-12 relative mt-8'
+                'prose prose-zinc relative mt-8 max-w-none dark:prose-invert prose-code:py-2 '
               )}
             >
               {mdx.content}
