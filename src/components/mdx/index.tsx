@@ -12,6 +12,8 @@ import type { AccordionSingleProps } from '@radix-ui/react-accordion';
 import { Github } from 'lucide-react';
 import { Picture } from '../ui/picture';
 import { Check, Note, Tip, Warning, Info } from '../ui/callout-box';
+import { ResponseField } from '../ui/response-field';
+import { Expandable } from '../ui/expandable';
 
 export const components = {
   a: (props: React.HTMLAttributes<HTMLAnchorElement>) => {
@@ -70,6 +72,9 @@ export const components = {
       </AccordionItem>
     </Accordion>
   ),
+  // Components
+  ResponseField: ResponseField,
+  Expandable: Expandable,
   // Callout Boxes
   Note: Note,
   Warning: Warning,
