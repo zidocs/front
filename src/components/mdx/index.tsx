@@ -1,5 +1,4 @@
-import React from 'react';
-import { Typography } from './typography';
+import React, { ReactNode } from 'react';
 import { baseTextColor, cn } from '@/lib/utils';
 import { CopyButton } from '../ui/copy-button';
 import {
@@ -10,10 +9,11 @@ import {
 } from '../ui/accordion';
 import type { AccordionSingleProps } from '@radix-ui/react-accordion';
 import { Github } from 'lucide-react';
-import { Picture } from '../ui/picture';
 import { Check, Note, Tip, Warning, Info } from '../ui/callout-box';
 import { ResponseField } from '../ui/response-field';
 import { Expandable } from '../ui/expandable';
+import { Card, CardClickable } from '../ui/card';
+import { Icon } from '../ui/icon';
 
 export const components = {
   a: (props: React.HTMLAttributes<HTMLAnchorElement>) => {
@@ -75,6 +75,23 @@ export const components = {
   // Components
   ResponseField: ResponseField,
   Expandable: Expandable,
+  Card: CardClickable,
+  CardGroup: (props: { children: ReactNode; col?: number }) => {
+    let calc = 100;
+    if (props.col) {
+      calc = (1 / props.col) * 100;
+    }
+    return (
+      <div
+        className={cn(
+          'flex flex-wrap gap-y-4 [&>div]:mr-4',
+          `[&>div]:basis-[calc(${calc}%-1rem)]`
+        )}
+      >
+        {props.children}
+      </div>
+    );
+  },
   // Callout Boxes
   Note: Note,
   Warning: Warning,

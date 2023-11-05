@@ -7,6 +7,7 @@ import {
   Lightbulb,
   TerminalSquare,
   BookOpen,
+  Link,
 } from 'lucide-react';
 
 interface IconProps {
@@ -18,7 +19,8 @@ interface IconProps {
     | 'info'
     | 'lightBulb'
     | 'check'
-    | 'bookOpen';
+    | 'bookOpen'
+    | 'link';
   className?: string;
   size?: string | number;
   strokeWidth?: string | number;
@@ -35,6 +37,7 @@ const Icon = ({ name, ...props }: IconProps) => {
     lightBulb: <Lightbulb {...props} />,
     check: <Check {...props} />,
     bookOpen: <BookOpen {...props} />,
+    link: <Link {...props} />,
   };
 
   return Icons[name];
