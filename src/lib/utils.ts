@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { DataFinal } from './mdx';
+import { DataFromConfig } from './mdx';
 import { toString } from 'mdast-util-to-string';
 import { visit } from 'unist-util-visit';
 import { headingRank as rank } from 'hast-util-heading-rank';
@@ -45,14 +45,14 @@ export function countOccur(input: string, array: string[]) {
   return count;
 }
 
-export function getActualPage(data: DataFinal[], pathname: string) {
+export function getActualPage(data: DataFromConfig[], pathname: string) {
   return data
     .flatMap((group) => group.groups)
     .flatMap((innerGroup) => innerGroup.pages)
     .find((page) => `/${page.href}` === pathname);
 }
 
-export function getActualTab(data: DataFinal[], pathname: string) {
+export function getActualTab(data: DataFromConfig[], pathname: string) {
   return (
     data.find((group) =>
       group.groups.some((innerGroup) =>

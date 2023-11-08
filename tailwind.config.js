@@ -55,10 +55,10 @@ module.exports = {
         border: 'hsl(240 5.9% 90%)',
         input: 'hsl(240 5.9% 90%)',
         ring: 'hsl(240 10% 3.9%)',
-        background: config.colors.background.light ?? 'hsl(0 0% 100%)',
+        background: config.colors.background.light || 'hsl(0 0% 100%)',
         foreground: 'hsl(240 10% 3.9%)',
         primary: {
-          DEFAULT: config.colors.primary ?? 'hsl(240 5.9% 10%)',
+          DEFAULT: config.colors.primary || 'hsl(240 5.9% 10%)',
           foreground: 'hsl(0 0% 98%)',
         },
         secondary: {
@@ -70,7 +70,7 @@ module.exports = {
           foreground: 'hsl(0 0% 98%)',
         },
         muted: {
-          DEFAULT: config.colors.primary ?? 'hsl(240 4.8% 95.9%)',
+          DEFAULT: config.colors.primary || 'hsl(240 4.8% 95.9%)',
           foreground: 'hsl(240 3.8% 46.1%)',
         },
         accent: {
@@ -90,10 +90,10 @@ module.exports = {
         border: 'hsl(240 3.7% 15.9%)',
         input: 'hsl(240 3.7% 15.9%)',
         ring: 'hsl(240 4.9% 83.9%)',
-        background: config.colors.background.dark ?? 'hsl(240 10% 3.9%)',
+        background: config.colors.background.dark || 'hsl(240 10% 3.9%)',
         foreground: 'hsl(0 0% 98%)',
         primary: {
-          DEFAULT: config.colors.primary ?? 'hsl(0 0% 98%)',
+          DEFAULT: config.colors.primary || 'hsl(0 0% 98%)',
           foreground: 'hsl(240 5.9% 10%)',
         },
         secondary: {
@@ -105,7 +105,7 @@ module.exports = {
           foreground: 'hsl(0 0% 98%)',
         },
         muted: {
-          DEFAULT: config.colors.primary ?? 'hsl(240 3.7% 15.9%)',
+          DEFAULT: config.colors.primary || 'hsl(240 3.7% 15.9%)',
           foreground: 'hsl(240 5% 64.9%)',
         },
         accent: {

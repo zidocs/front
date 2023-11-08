@@ -37,7 +37,11 @@ export async function generateMetadata(
   };
 }
 
-export default async function Page({ params }: any) {
+export interface PageProps {
+  params: { slug: string[] };
+}
+
+export default async function Page({ params }: PageProps) {
   const mdx = await getMdxBySlug(params.slug.join('/'));
   const data = await getAllData();
 

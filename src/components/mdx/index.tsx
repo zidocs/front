@@ -12,8 +12,11 @@ import { Github } from 'lucide-react';
 import { Check, Note, Tip, Warning, Info } from '../ui/callout-box';
 import { ResponseField } from '../ui/response-field';
 import { Expandable } from '../ui/expandable';
-import { Card, CardClickable } from '../ui/card';
+import { CardClickable } from '../ui/card';
 import { Icon } from '../ui/icon';
+import dynamicIconImports from 'lucide-react/dynamicIconImports';
+import { CardGroup } from '../ui/card-group';
+import { Picture } from '../ui/picture';
 
 export const components = {
   a: (props: React.HTMLAttributes<HTMLAnchorElement>) => {
@@ -40,7 +43,7 @@ export const components = {
         )}
       >
         <pre
-          className="max-h-[650px] w-full overflow-x-auto rounded-xl border bg-white px-4 py-3 pr-10 dark:border-zinc-300 dark:border-opacity-20 dark:bg-zinc-950 [&>code]:overflow-scroll"
+          className="max-h-[650px] w-full overflow-x-auto rounded-xl border bg-white px-4 py-3 pr-10 dark:border-zinc-300 dark:border-opacity-20 dark:bg-zinc-950 [&>code]:overflow-auto"
           {...props}
         >
           {children}
@@ -56,14 +59,17 @@ export const components = {
     />
   ),
   Accordion: (
-    props: AccordionSingleProps & { icon: string; title: string }
+    props: AccordionSingleProps & {
+      icon: keyof typeof dynamicIconImports;
+      title: string;
+    }
   ) => (
     <Accordion type="single" collapsible className="w-full">
       <AccordionItem value={props.title}>
         <AccordionTrigger>
           {props.icon && (
             <span className="absolute">
-              <Github size={16} />
+              <Icon name={props.icon} size={16} />
             </span>
           )}
           <div className={cn(props.icon && 'pl-6')}>{props.title}</div>
@@ -76,22 +82,8 @@ export const components = {
   ResponseField: ResponseField,
   Expandable: Expandable,
   Card: CardClickable,
-  CardGroup: (props: { children: ReactNode; col?: number }) => {
-    let calc = 100;
-    if (props.col) {
-      calc = (1 / props.col) * 100;
-    }
-    return (
-      <div
-        className={cn(
-          'flex flex-wrap gap-y-4 [&>div]:mr-4',
-          `[&>div]:basis-[calc(${calc}%-1rem)]`
-        )}
-      >
-        {props.children}
-      </div>
-    );
-  },
+  CardGroup: CardGroup,
+  Image: Picture,
   // Callout Boxes
   Note: Note,
   Warning: Warning,

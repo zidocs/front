@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import { baseTextColor, cn } from '@/lib/utils';
-import { Icon } from './icon';
+import { Icon, IconType } from './icon';
 import { useRouter } from 'next/navigation';
 
 const Card = React.forwardRef<
@@ -80,13 +80,20 @@ const CardFooter = React.forwardRef<
 ));
 CardFooter.displayName = 'CardFooter';
 
-const CardClickable = (props: any) => {
+interface CardClickableProps {
+  href?: string;
+  icon?: IconType;
+  title: string;
+  children: React.ReactNode;
+}
+
+const CardClickable = (props: CardClickableProps) => {
   const router = useRouter();
 
   return (
     <Card
       className="cursor-pointer p-6 pb-2 hover:border-primary"
-      onClick={() => router.push(props.href)}
+      onClick={() => router.push(props.href || '/')}
     >
       {props.icon && (
         <Icon className="mb-4 text-primary" size={20} name={props.icon} />

@@ -6,12 +6,12 @@ import { Search } from './ui/search';
 import { ChevronRight, Menu } from 'lucide-react';
 import { Sidebar } from './side-bar';
 import { usePathname } from 'next/navigation';
-import { DataFinal } from '@/lib/mdx';
+import { DataFromConfig } from '@/lib/mdx';
 import { TabsMenu } from './tabs-menu';
 import { cn, getActualPage } from '@/lib/utils';
 
 interface NavBarProps {
-  data: DataFinal[];
+  data: DataFromConfig[];
   config: any;
 }
 export function NavBar({ data, config }: NavBarProps) {

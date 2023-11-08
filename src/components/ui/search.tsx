@@ -15,16 +15,16 @@ import {
 } from './command';
 import { FileText, SearchIcon } from 'lucide-react';
 import React from 'react';
-import { DataFinal, PageFromConfig } from '@/lib/mdx';
+import { DataFromConfig, GroupFromConfig, PageFromConfig } from '@/lib/mdx';
 
 interface SearchProps {
-  data: DataFinal[];
+  data: DataFromConfig[];
 }
 
 export function Search({ data }: SearchProps) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = React.useState('');
-  const [filteredData, setFilteredData] = useState<any>([]);
+  const [filteredData, setFilteredData] = useState<GroupFromConfig[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export function Search({ data }: SearchProps) {
         <CommandList className="bg-background">
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandSeparator />
-          {filteredData.map((groups: any) => {
+          {filteredData.map((groups) => {
             return (
               <CommandGroup key={groups.name} heading={groups.name}>
                 {groups.pages.map((page: PageFromConfig) => {

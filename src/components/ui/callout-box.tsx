@@ -1,6 +1,7 @@
 import { baseTextColor, cn } from '@/lib/utils';
 import React, { ReactNode } from 'react';
-import { Icon, IconProps } from './icon';
+import { Icon } from './icon';
+import dynamicIconImports from 'lucide-react/dynamicIconImports';
 
 interface CalloutBoxProps {
   children: ReactNode;
@@ -22,7 +23,7 @@ const CalloutBox = (props: CalloutBoxProps) => {
 };
 
 const CalloutBoxIcon = (props: {
-  name: IconProps['name'];
+  name: keyof typeof dynamicIconImports;
   className?: string;
 }) => {
   return <Icon {...props} size={20} strokeWidth="2.5" />;
@@ -31,7 +32,7 @@ const CalloutBoxIcon = (props: {
 const Note = (props: CalloutBoxProps) => {
   return (
     <CalloutBox className="border-sky-200 bg-sky-200 dark:border-sky-700 dark:bg-sky-900 dark:text-sky-200">
-      <CalloutBoxIcon name="alertCircle" className="text-sky-400" />
+      <CalloutBoxIcon name="alert-circle" className="text-sky-400" />
       {props.children}
     </CalloutBox>
   );
@@ -40,7 +41,7 @@ const Note = (props: CalloutBoxProps) => {
 const Warning = (props: CalloutBoxProps) => {
   return (
     <CalloutBox className="border-yellow-200 bg-yellow-200 dark:border-yellow-700 dark:bg-yellow-900 dark:text-yellow-200">
-      <CalloutBoxIcon name="alertTriangle" className="text-yellow-400" />
+      <CalloutBoxIcon name="alert-triangle" className="text-yellow-400" />
       {props.children}
     </CalloutBox>
   );
@@ -58,7 +59,7 @@ const Info = (props: CalloutBoxProps) => {
 const Tip = (props: CalloutBoxProps) => {
   return (
     <CalloutBox className="border-emerald-200 bg-emerald-200 dark:border-emerald-900 dark:bg-emerald-900 dark:text-emerald-200">
-      <CalloutBoxIcon name="lightBulb" className="text-emerald-400" />
+      <CalloutBoxIcon name="lightbulb" className="text-emerald-400" />
       {props.children}
     </CalloutBox>
   );

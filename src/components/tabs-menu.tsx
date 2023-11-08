@@ -1,7 +1,7 @@
 'use client';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { DataFinal } from '@/lib/mdx';
+import { DataFromConfig } from '@/lib/mdx';
 import { baseTextColor, cn, getActualTab, slugify } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -14,7 +14,7 @@ export function TabsMenu({
   open,
   setOpen,
 }: {
-  data: DataFinal[];
+  data: DataFromConfig[];
   className?: string;
   open?: boolean;
   setOpen?: (status: boolean) => void;
@@ -38,7 +38,7 @@ export function TabsMenu({
           'flex justify-start gap-2 bg-transparent p-6 pl-[1.65rem] lg:gap-4'
         )}
       >
-        {data.map((tab: DataFinal) => {
+        {data.map((tab: DataFromConfig) => {
           const firstPageHref = `/${tab.groups[0].pages[0].href}`;
           return (
             <Link
@@ -58,7 +58,7 @@ export function TabsMenu({
                 onClick={() => setOpen && setOpen(false)}
                 value={slugify(tab.tabName)}
               >
-                <Icon name="bookOpen" className="rounded-sm lg:hidden" />
+                <Icon name="book-open" className="rounded-sm lg:hidden" />
                 {tab.tabName}
               </TabsTrigger>
             </Link>

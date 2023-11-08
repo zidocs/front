@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { usePathname } from 'next/navigation';
 import { Typography } from './mdx/typography';
-import { DataFromConfig, PageFromConfig, DataFinal } from '@/lib/mdx';
+import { DataFromConfig, GroupFromConfig, PageFromConfig } from '@/lib/mdx';
 
 export const dynamic = 'error';
 
@@ -14,11 +14,11 @@ interface ISideBarSubItem extends PageFromConfig {
   onClick?: () => void;
 }
 
-interface ISideBarItem extends DataFromConfig {
+interface ISideBarItem extends GroupFromConfig {
   onClick?: () => void;
 }
 
-interface ISideBar extends DataFinal {
+interface ISideBar extends DataFromConfig {
   onClick?: () => void;
 }
 
@@ -85,7 +85,7 @@ export function Sidebar({
       );
 
       return foundPageInGroups;
-    }) ?? data[0];
+    }) || data[0];
 
   return (
     <div
@@ -97,7 +97,7 @@ export function Sidebar({
     >
       <div className="space-y-4">
         <ScrollArea className="flex h-[100vh] flex-col gap-4 pb-10">
-          {actualTab.groups.map((item: any) => {
+          {actualTab.groups.map((item) => {
             return (
               <SideBarItem
                 onClick={() => setOpen && setOpen(false)}

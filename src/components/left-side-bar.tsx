@@ -1,17 +1,16 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { DataFinal, DataFromConfig, PageFromConfig } from '@/lib/mdx';
+import { DataFromConfig, TableOfContent } from '@/lib/mdx';
 import { cn, getActualPage } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Button } from './ui/button';
 
 export const dynamic = 'error';
 
 interface LeftSideBarProps {
-  data: DataFinal[];
-  toc: any;
+  data: DataFromConfig[];
+  toc: TableOfContent[];
 }
 
 interface LeftSideBarItem {
@@ -34,7 +33,7 @@ export function LeftSideBar({ data, toc }: LeftSideBarProps) {
         return;
       }
 
-      const result = toc.map(({ depth, value, id }: any) => {
+      const result = toc.map(({ depth, value, id }) => {
         return {
           name: value,
           href: id,
@@ -54,7 +53,7 @@ export function LeftSideBar({ data, toc }: LeftSideBarProps) {
 
   useEffect(() => {
     try {
-      const result = toc.map(({ depth, value, id }: any) => {
+      const result = toc.map(({ depth, value, id }) => {
         return {
           name: value,
           href: id,
@@ -101,7 +100,7 @@ export function LeftSideBar({ data, toc }: LeftSideBarProps) {
     }
   };
 
-  const handleClick = (id: string, e: any) => {
+  const handleClick = (id: string) => {
     setSelectedItem({
       id,
     });
@@ -137,7 +136,7 @@ export function LeftSideBar({ data, toc }: LeftSideBarProps) {
         return (
           <li key={href} className={style}>
             <Link
-              onClick={(e) => handleClick(href, e)}
+              onClick={(e) => handleClick(href)}
               className={cn(
                 selectedItem?.id === href
                   ? 'leading-7 text-primary opacity-100'

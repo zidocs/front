@@ -71,17 +71,23 @@ export interface IMDXFile {
 export interface IMDXMeta {
   title: string;
   description: string;
-  toc: any;
+  toc: TableOfContent;
   additionalProperties?: any;
 }
 
-export interface DataFinal {
-  tabName: string;
-  groups: DataFromConfig[];
-  groupsNames: string[];
+export interface TableOfContent {
+  id: string;
+  depth: number;
+  value: string;
 }
 
 export interface DataFromConfig {
+  tabName: string;
+  groups: GroupFromConfig[];
+  groupsNames: string[];
+}
+
+export interface GroupFromConfig {
   name: string;
   pages: PageFromConfig[];
 }
@@ -185,7 +191,7 @@ export const getAllData = async () => {
   });
 
   const mdxData = await Promise.all(promisesArray);
-  const result: DataFinal[] = [
+  const result: DataFromConfig[] = [
     { tabName: 'Documentation', groups: [], groupsNames: [] },
   ];
 
@@ -194,7 +200,7 @@ export const getAllData = async () => {
       result.push({
         tabName: tab.name,
         groups: [],
-        groupsNames: tab.groups ?? [],
+        groupsNames: tab.groups || [],
       })
     );
   }

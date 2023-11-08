@@ -12,6 +12,8 @@ import {
   ImgHTMLAttributes,
   RefAttributes,
 } from 'react';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 const Picture = (
   props: JSX.IntrinsicAttributes &
@@ -37,16 +39,25 @@ const Picture = (
       objectPosition?: string | undefined;
       lazyBoundary?: string | undefined;
       lazyRoot?: string | undefined;
-    } & RefAttributes<HTMLImageElement | null>
+    } & RefAttributes<HTMLImageElement>
 ) => {
   return (
-    <Image
-      {...props}
-      width={0}
-      height={0}
-      className="!rounded-4xl"
-      layout="responsive"
-    />
+    <Zoom
+      classDialog="[&>div]:bg-[#000000c4] [&>img]:!rounded-xl"
+      zoomMargin={40}
+    >
+      <Image
+        width={700}
+        height={475}
+        sizes="100vw"
+        style={{
+          width: '100%',
+          height: 'auto',
+        }}
+        {...props}
+        className="rounded-3xl"
+      />
+    </Zoom>
   );
 };
 

@@ -1,47 +1,22 @@
-import {
-  AlertCircle,
-  AlertTriangle,
-  Check,
-  Github,
-  Info,
-  Lightbulb,
-  TerminalSquare,
-  BookOpen,
-  Link,
-} from 'lucide-react';
+import dynamic from 'next/dynamic';
+import { LucideProps } from 'lucide-react';
+import dynamicIconImports from 'lucide-react/dynamicIconImports';
 
-interface IconProps {
-  name:
-    | 'github'
-    | 'terminalSquare'
-    | 'alertCircle'
-    | 'alertTriangle'
-    | 'info'
-    | 'lightBulb'
-    | 'check'
-    | 'bookOpen'
-    | 'link';
-  className?: string;
-  size?: string | number;
-  strokeWidth?: string | number;
-  color?: string;
+interface IconProps extends LucideProps {
+  name: keyof typeof dynamicIconImports;
 }
 
-const Icon = ({ name, ...props }: IconProps) => {
-  const Icons: Record<IconProps['name'], any> = {
-    github: <Github {...props} />,
-    terminalSquare: <TerminalSquare {...props} />,
-    alertCircle: <AlertCircle {...props} />,
-    alertTriangle: <AlertTriangle {...props} />,
-    info: <Info {...props} />,
-    lightBulb: <Lightbulb {...props} />,
-    check: <Check {...props} />,
-    bookOpen: <BookOpen {...props} />,
-    link: <Link {...props} />,
-  };
+type IconType = keyof typeof dynamicIconImports;
 
-  return Icons[name];
+const Icon = ({ name, ...props }: IconProps) => {
+  try {
+    const LucideIcon = dynamic(dynamicIconImports[name]);
+
+    return <LucideIcon {...props} />;
+  } catch (err) {
+    console.error('Error while trying to get the icon');
+  }
 };
 
 export { Icon };
-export type { IconProps };
+export type { IconType };
