@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/lib/utils';
 import {
   StaticImport,
   PlaceholderValue,
@@ -55,7 +56,7 @@ const Picture = (
           height: 'auto',
         }}
         {...props}
-        className="rounded-3xl"
+        className={cn('rounded-3xl', props.className)}
       />
     </Zoom>
   );
