@@ -13,7 +13,6 @@ import {
   ImgHTMLAttributes,
   RefAttributes,
 } from 'react';
-import Zoom from 'react-medium-image-zoom';
 import 'react-medium-image-zoom/dist/styles.css';
 
 const Picture = (
@@ -43,22 +42,17 @@ const Picture = (
     } & RefAttributes<HTMLImageElement>
 ) => {
   return (
-    <Zoom
-      classDialog="[&>div]:bg-[#000000c4] [&>img]:!rounded-xl"
-      zoomMargin={40}
-    >
-      <Image
-        width={700}
-        height={475}
-        sizes="100vw"
-        style={{
-          width: '100%',
-          height: 'auto',
-        }}
-        {...props}
-        className={cn('rounded-3xl', props.className)}
-      />
-    </Zoom>
+    <Image
+      width={700}
+      height={475}
+      sizes="100vw"
+      style={{
+        width: '100%',
+        height: 'auto',
+      }}
+      {...props}
+      className={cn('rounded-3xl', props.className)}
+    />
   );
 };
 
