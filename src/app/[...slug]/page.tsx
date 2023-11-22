@@ -50,7 +50,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <div className="flex justify-center gap-12 p-6 lg:pl-[20rem]">
-      <div className="relative w-full max-w-3xl grow overflow-hidden xl:max-w-[49rem] xl:pl-14">
+      <div className="relative w-full max-w-3xl grow overflow-hidden pb-10 xl:max-w-[49rem] xl:pl-14">
         <div>
           <div className="mb-6 flex flex-col gap-2">
             <Typography

@@ -5,6 +5,7 @@ import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { ChevronDown } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { Icon } from './icon';
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -15,7 +16,7 @@ const AccordionItem = React.forwardRef<
   <AccordionPrimitive.Item
     ref={ref}
     className={cn(
-      'my-4 rounded-md border border-b bg-white dark:bg-zinc-950',
+      'my-4 rounded-md border border-b border-opacity-40 bg-white dark:border-opacity-40 dark:bg-zinc-950',
       className
     )}
     {...props}
@@ -60,4 +61,37 @@ const AccordionContent = React.forwardRef<
 ));
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+const AccordionGroup = ({ children }: { children: React.ReactNode }) => (
+  <div className="my-6 divide-y divide-black divide-opacity-5 rounded-md border border-b border-opacity-40 bg-white dark:divide-white dark:divide-opacity-5 dark:border-opacity-40 dark:bg-zinc-950 [&>div:first-child>div>h3>button]:!rounded-t-md [&>div>div>h3>button]:!rounded-none [&>div>div]:m-0 [&>div>div]:border-none">
+    {children}
+  </div>
+);
+
+const AccordionMDX = (props: {
+  title: string;
+  children?: React.ReactNode;
+  icon?: string;
+}) => (
+  <Accordion type="single" collapsible className="w-full">
+    <AccordionItem value={props.title}>
+      <AccordionTrigger>
+        {props.icon && (
+          <span className="absolute min-w-[20px] max-w-[20px] text-center">
+            <Icon name={props.icon} size="1x" />
+          </span>
+        )}
+        <div className={cn(props.icon && 'pl-8')}>{props.title}</div>
+      </AccordionTrigger>
+      <AccordionContent>{props.children}</AccordionContent>
+    </AccordionItem>
+  </Accordion>
+);
+
+export {
+  Accordion,
+  AccordionGroup,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+  AccordionMDX,
+};

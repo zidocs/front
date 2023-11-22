@@ -4,7 +4,9 @@ import { CopyButton } from '../ui/copy-button';
 import {
   Accordion,
   AccordionContent,
+  AccordionGroup,
   AccordionItem,
+  AccordionMDX,
   AccordionTrigger,
 } from '../ui/accordion';
 import type { AccordionSingleProps } from '@radix-ui/react-accordion';
@@ -56,26 +58,8 @@ export const components = {
       {...props}
     />
   ),
-  Accordion: (
-    props: AccordionSingleProps & {
-      icon: string;
-      title: string;
-    }
-  ) => (
-    <Accordion type="single" collapsible className="w-full">
-      <AccordionItem value={props.title}>
-        <AccordionTrigger>
-          {props.icon && (
-            <span className="absolute">
-              <Icon name={props.icon} size="1x" />
-            </span>
-          )}
-          <div className={cn(props.icon && 'pl-6')}>{props.title}</div>
-        </AccordionTrigger>
-        <AccordionContent>{props.children}</AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  ),
+  Accordion: AccordionMDX,
+  AccordionGroup: AccordionGroup,
   // Components
   ResponseField: ResponseField,
   Expandable: Expandable,
