@@ -22,17 +22,14 @@ const CalloutBox = (props: CalloutBoxProps) => {
   );
 };
 
-const CalloutBoxIcon = (props: {
-  name: keyof typeof dynamicIconImports;
-  className?: string;
-}) => {
-  return <Icon {...props} size={20} strokeWidth="2.5" />;
+const CalloutBoxIcon = (props: { name: string; className?: string }) => {
+  return <Icon {...props} size="lg" />;
 };
 
 const Note = (props: CalloutBoxProps) => {
   return (
     <CalloutBox className="border-sky-200 bg-sky-200 dark:border-sky-700 dark:bg-sky-900 dark:text-sky-200">
-      <CalloutBoxIcon name="alert-circle" className="text-sky-400" />
+      <CalloutBoxIcon name="circle-exclamation" className="text-sky-400" />
       {props.children}
     </CalloutBox>
   );
@@ -41,7 +38,7 @@ const Note = (props: CalloutBoxProps) => {
 const Warning = (props: CalloutBoxProps) => {
   return (
     <CalloutBox className="border-yellow-200 bg-yellow-200 dark:border-yellow-700 dark:bg-yellow-900 dark:text-yellow-200">
-      <CalloutBoxIcon name="alert-triangle" className="text-yellow-400" />
+      <CalloutBoxIcon name="triangle-exclamation" className="text-yellow-400" />
       {props.children}
     </CalloutBox>
   );
@@ -50,7 +47,7 @@ const Warning = (props: CalloutBoxProps) => {
 const Info = (props: CalloutBoxProps) => {
   return (
     <CalloutBox className="border-gray-200 bg-gray-200 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-200">
-      <CalloutBoxIcon name="info" className="text-gray-400" />
+      <CalloutBoxIcon name="circle-info" className="text-gray-400" />
       {props.children}
     </CalloutBox>
   );

@@ -3,7 +3,7 @@
 import * as React from 'react';
 
 import { baseTextColor, cn } from '@/lib/utils';
-import { Icon, IconType } from './icon';
+import { Icon } from './icon';
 import { useRouter } from 'next/navigation';
 
 const Card = React.forwardRef<
@@ -82,7 +82,7 @@ CardFooter.displayName = 'CardFooter';
 
 interface CardClickableProps {
   href?: string;
-  icon?: IconType;
+  icon?: string;
   title: string;
   children: React.ReactNode;
 }
@@ -92,11 +92,11 @@ const CardClickable = (props: CardClickableProps) => {
 
   return (
     <Card
-      className="cursor-pointer p-6 pb-2 hover:border-primary"
+      className="flex cursor-pointer flex-col gap-1 p-6 pb-2 hover:border-primary"
       onClick={() => router.push(props.href || '/')}
     >
       {props.icon && (
-        <Icon className="mb-4 text-primary" size={20} name={props.icon} />
+        <Icon className="mb-4 text-primary" name={props.icon} size="lg" />
       )}
       <div className="flex flex-col gap-[0.05rem]">
         <span className="font-bold tracking-wide">{props.title}</span>

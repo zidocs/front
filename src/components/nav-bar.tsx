@@ -3,12 +3,12 @@
 import { useEffect, useState } from 'react';
 import { ModeToggle } from './mode-toggle';
 import { Search } from './ui/search';
-import { ChevronRight, Menu } from 'lucide-react';
 import { Sidebar } from './side-bar';
 import { usePathname } from 'next/navigation';
 import { DataFromConfig } from '@/lib/mdx';
 import { TabsMenu } from './tabs-menu';
 import { cn, getActualPage } from '@/lib/utils';
+import { ChevronRight, Menu } from 'lucide-react';
 
 interface NavBarProps {
   data: DataFromConfig[];

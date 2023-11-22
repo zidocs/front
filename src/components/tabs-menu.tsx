@@ -50,15 +50,19 @@ export function TabsMenu({
                 className={cn(
                   `${
                     open
-                      ? 'flex gap-2 text-base font-semibold data-[state=active]:text-primary data-[state=inactive]:opacity-70 data-[state=inactive]:hover:opacity-90  data-[state=active]:dark:text-primary [&>svg]:hover:text-primary'
+                      ? 'flex gap-2 text-base  font-semibold text-white data-[state=active]:text-primary data-[state=active]:dark:text-primary [&>svg]:hover:text-primary'
                       : 'data-[state=active]:text-foreground data-[state=inactive]:text-opacity-70 data-[state=active]:underline data-[state=active]:decoration-primary data-[state=active]:underline-offset-[1.165rem] data-[state=inactive]:hover:text-opacity-90 data-[state=inactive]:hover:underline data-[state=inactive]:hover:decoration-zinc-200 data-[state=inactive]:hover:underline-offset-[1.165rem] data-[state=inactive]:dark:text-opacity-70 data-[state=inactive]:dark:hover:text-opacity-90  dark:data-[state=inactive]:hover:decoration-zinc-700'
                   }`,
-                  'text-normal pl-0 font-normal tracking-wide hover:text-opacity-70'
+                  'text-normal pl-0 font-normal tracking-wide text-black hover:text-opacity-100 dark:text-white'
                 )}
                 onClick={() => setOpen && setOpen(false)}
                 value={slugify(tab.tabName)}
               >
-                <Icon name="book-open" className="rounded-sm lg:hidden" />
+                <Icon
+                  name="book-open"
+                  size="1x"
+                  className="rounded-sm lg:hidden"
+                />
                 {tab.tabName}
               </TabsTrigger>
             </Link>

@@ -8,7 +8,11 @@ import { cn } from '@/lib/utils';
 
 import { getAllData } from '@/lib/mdx';
 import { NavBar } from '@/components/nav-bar';
-import { LeftSideBar } from '@/components/left-side-bar';
+import '@fortawesome/fontawesome-svg-core/styles.css';
+
+import { config as fontAwesomeConfig } from '@fortawesome/fontawesome-svg-core';
+
+fontAwesomeConfig.autoAddCss = false;
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -41,8 +45,11 @@ export default async function RootLayout({
         ></span> */}
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <NavBar config={config} data={data} />
+          <div className="m-auto max-w-8xl">
+            <Sidebar className="fixed w-[18rem] lg:pl-8" data={data} />
 
-          {children}
+            {children}
+          </div>
         </ThemeProvider>
       </body>
     </html>

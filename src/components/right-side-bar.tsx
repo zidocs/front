@@ -8,23 +8,23 @@ import Link from 'next/link';
 
 export const dynamic = 'error';
 
-interface LeftSideBarProps {
+interface RightSideBarProps {
   data: DataFromConfig[];
   toc: TableOfContent[];
 }
 
-interface LeftSideBarItem {
+interface RightSideBarItem {
   href: string;
   name?: string;
   depth?: number;
 }
 
-export function LeftSideBar({ data, toc }: LeftSideBarProps) {
+export function RightSideBar({ data, toc }: RightSideBarProps) {
   const pathname = usePathname();
   const [selectedItem, setSelectedItem] = useState<{
     id: string;
   } | null>();
-  const [result, setResult] = useState<LeftSideBarItem[]>([]);
+  const [result, setResult] = useState<RightSideBarItem[]>([]);
 
   const actualPage = getActualPage(data, pathname);
   useEffect(() => {

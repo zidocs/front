@@ -3,7 +3,7 @@ const nextConfig = {
   //output: 'export',
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: false,
-  transpilePackages: ['lucide-react'],
+  transpilePackages: [],
   images: {
     remotePatterns: [
       {

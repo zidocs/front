@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { baseTextColor, cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { CopyButton } from '../ui/copy-button';
 import {
   Accordion,
@@ -8,13 +8,11 @@ import {
   AccordionTrigger,
 } from '../ui/accordion';
 import type { AccordionSingleProps } from '@radix-ui/react-accordion';
-import { Github } from 'lucide-react';
 import { Check, Note, Tip, Warning, Info } from '../ui/callout-box';
 import { ResponseField } from '../ui/response-field';
 import { Expandable } from '../ui/expandable';
 import { CardClickable } from '../ui/card';
 import { Icon } from '../ui/icon';
-import dynamicIconImports from 'lucide-react/dynamicIconImports';
 import { CardGroup } from '../ui/card-group';
 import { Picture } from '../ui/picture';
 
@@ -60,7 +58,7 @@ export const components = {
   ),
   Accordion: (
     props: AccordionSingleProps & {
-      icon: keyof typeof dynamicIconImports;
+      icon: string;
       title: string;
     }
   ) => (
@@ -69,7 +67,7 @@ export const components = {
         <AccordionTrigger>
           {props.icon && (
             <span className="absolute">
-              <Icon name={props.icon} size={16} />
+              <Icon name={props.icon} size="1x" />
             </span>
           )}
           <div className={cn(props.icon && 'pl-6')}>{props.title}</div>

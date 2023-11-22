@@ -7,6 +7,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { usePathname } from 'next/navigation';
 import { Typography } from './mdx/typography';
 import { DataFromConfig, GroupFromConfig, PageFromConfig } from '@/lib/mdx';
+import { Icon } from './ui/icon';
 
 export const dynamic = 'error';
 
@@ -22,7 +23,7 @@ interface ISideBar extends DataFromConfig {
   onClick?: () => void;
 }
 
-function SideBarSubItem({ title, href, onClick }: ISideBarSubItem) {
+function SideBarSubItem({ title, href, icon, onClick }: ISideBarSubItem) {
   const pathname = usePathname();
 
   return (
@@ -33,16 +34,19 @@ function SideBarSubItem({ title, href, onClick }: ISideBarSubItem) {
           variant: 'ghost',
         }),
         baseTextColor,
-        `h-10 w-full justify-start font-normal tracking-wide hover:bg-muted hover:bg-opacity-10 lg:h-8`,
+        `flex h-auto w-full items-center justify-start gap-2 font-normal tracking-wide hover:bg-muted hover:bg-opacity-10`,
         pathname === `/${href}` &&
           'bg-muted bg-opacity-10 text-primary opacity-100 hover:bg-opacity-10 hover:text-primary dark:text-primary'
       )}
       onClick={onClick}
     >
+      {icon && (
+        <Icon name={icon} size="1x" className="min-w-[14px] text-center" />
+      )}
       <Typography
         variant="span"
         className={cn(
-          `text-base font-light dark:opacity-70 lg:text-sm`,
+          `space-x-2.5 text-base font-light dark:opacity-70 lg:text-sm`,
           pathname === `/${href}` && 'font-medium dark:opacity-100'
         )}
       >

@@ -95,6 +95,7 @@ export interface GroupFromConfig {
 export interface PageFromConfig {
   title: string;
   href: string;
+  icon?: string;
   group?: string;
   content: string;
 }
@@ -157,7 +158,7 @@ export const getMdxMetaDataBySlug = async (
       encoding: 'utf-8',
     });
 
-    const { frontmatter, ...toc } = await compileMDX({
+    const { frontmatter } = await compileMDX({
       source: fileContent,
       options: {
         parseFrontmatter: true,
@@ -223,6 +224,7 @@ export const getAllData = async () => {
 
             group?.pages.push({
               title: meta.title,
+              icon: meta.icon,
               href: meta.filePath,
               group: groupName,
               content: content,
