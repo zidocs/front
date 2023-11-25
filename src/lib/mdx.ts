@@ -41,7 +41,7 @@ const rehypePlugins = [
   [
     rehypePrettyCode,
     {
-      theme: { dark: 'dracula', light: 'vitesse-light' },
+      theme: { dark: 'dracula', light: 'light-plus' },
       keepBackground: false,
       defaultLang: 'plaintext',
     },

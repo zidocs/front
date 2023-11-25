@@ -10,8 +10,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const baseTextColor = 'dark:text-zinc-400 text-zinc-600';
-
 export function capitalizeFirstLetter(string: string) {
   return string[0].toUpperCase() + string.slice(1);
 }
@@ -188,6 +186,9 @@ export const rehypePreRaw = () => {
 
         for (const child of node.children) {
           if (child.tagName === 'pre') {
+            if (node['data-name']) {
+              child.properties['data-name'] = node['data-name'];
+            }
             child.properties['raw'] = node.raw;
           }
         }
@@ -204,6 +205,7 @@ export const rehypeRaw = () => {
 
         if (codeEl.tagName !== 'code') return;
 
+        if (codeEl.data?.meta) node['data-name'] = codeEl.data.meta;
         node.raw = codeEl.children?.[0].value;
       }
     });

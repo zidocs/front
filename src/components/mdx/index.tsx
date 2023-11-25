@@ -1,22 +1,14 @@
 import React, { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import { CopyButton } from '../ui/copy-button';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionGroup,
-  AccordionItem,
-  AccordionMDX,
-  AccordionTrigger,
-} from '../ui/accordion';
-import type { AccordionSingleProps } from '@radix-ui/react-accordion';
+import { AccordionGroup, AccordionMDX } from '../ui/accordion';
 import { Check, Note, Tip, Warning, Info } from '../ui/callout-box';
 import { ResponseField } from '../ui/response-field';
 import { Expandable } from '../ui/expandable';
 import { CardClickable } from '../ui/card';
-import { Icon } from '../ui/icon';
 import { CardGroup } from '../ui/card-group';
 import { Picture } from '../ui/picture';
+import { Code, CodeGroup, Pre } from '../ui/code';
 
 export const components = {
   a: (props: React.HTMLAttributes<HTMLAnchorElement>) => {
@@ -30,34 +22,9 @@ export const components = {
       </a>
     );
   },
-  pre: ({ className, children, ...props }: any) => {
-    const lang = props['data-language'];
-    const theme = props['data-theme'];
-
-    return (
-      <div
-        className={cn(
-          theme === 'dark'
-            ? 'relative hidden dark:block'
-            : 'relative block dark:hidden'
-        )}
-      >
-        <pre
-          className="max-h-[650px] w-full overflow-x-auto rounded-xl border bg-white px-4 py-3 pr-10 dark:border-zinc-300 dark:border-opacity-20 dark:bg-zinc-950 [&>code]:overflow-auto"
-          {...props}
-        >
-          {children}
-        </pre>
-        <CopyButton className="absolute right-4 top-6" text={props.raw} />
-      </div>
-    );
-  },
-  code: ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => (
-    <code
-      className={cn('!font-firacode tracking-wider', className)}
-      {...props}
-    />
-  ),
+  pre: Pre,
+  code: Code,
+  CodeGroup: CodeGroup,
   Accordion: AccordionMDX,
   AccordionGroup: AccordionGroup,
   // Components

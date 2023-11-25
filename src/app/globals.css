@@ -55,3 +55,21 @@
     @apply rounded-lg !border border-zinc-200 bg-zinc-50 !px-[0.3rem] !py-[0.3rem] !font-bold !tracking-widest dark:border-zinc-700 dark:bg-zinc-950;
   }
 }
+
+@layer utilities {
+  .base-border-color {
+    @apply border-opacity-80 dark:border-opacity-40;
+  }
+
+  .base-text-color {
+    @apply text-zinc-600 dark:text-zinc-400;
+  }
+
+  .tab-active {
+    @apply data-[state=active]:text-primary data-[state=active]:underline  data-[state=active]:decoration-primary data-[state=active]:underline-offset-[1.165rem] data-[state=active]:dark:text-primary;
+  }
+
+  .tab-inactive {
+    @apply data-[state=inactive]:text-opacity-70  data-[state=inactive]:hover:text-opacity-90 data-[state=inactive]:hover:underline data-[state=inactive]:hover:decoration-zinc-200  data-[state=inactive]:hover:underline-offset-[1.165rem]  data-[state=inactive]:dark:text-opacity-70  data-[state=inactive]:dark:hover:text-opacity-90 dark:data-[state=inactive]:hover:decoration-zinc-700;
+  }
+}

@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import config from '../../../public/starter-kit/zidocs.json';
 import { Metadata, ResolvingMetadata } from 'next';
 import { RightSideBar } from '@/components/right-side-bar';
-import { baseTextColor, cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
 export const dynamic = 'error';
 export const dynamicParams = false;
@@ -67,12 +67,7 @@ export default async function Page({ params }: PageProps) {
               {mdx.meta.description}
             </Typography>
           </div>
-          <article
-            className={cn(
-              baseTextColor,
-              'prose prose-zinc relative mt-8 max-w-none dark:prose-invert prose-code:py-2 '
-            )}
-          >
+          <article className="base-text-color prose prose-zinc relative mt-8 max-w-none dark:prose-invert prose-code:py-2">
             {mdx.content}
           </article>
         </div>

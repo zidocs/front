@@ -1,5 +1,3 @@
-import { baseTextColor } from '@/lib/utils';
-
 type ResponseFieldProps = {
   name: string;
   type: string;
@@ -19,7 +17,7 @@ const ResponseField = (props: ResponseFieldProps) => {
         </div>
         <span className="text-black dark:text-white">{props.type}</span>
       </div>
-      <div className={baseTextColor}>{props.children}</div>
+      <div className="base-text-color">{props.children}</div>
     </div>
   );
 };

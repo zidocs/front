@@ -1,5 +1,6 @@
 var config = require('./public/starter-kit/zidocs.json');
 const { createThemes } = require('tw-colors');
+const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -123,5 +124,8 @@ module.exports = {
       },
     }),
     require('@tailwindcss/typography'),
+    plugin(function ({ addVariant }) {
+      addVariant('children', '&>*');
+    }),
   ],
 };

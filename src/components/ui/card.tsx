@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 
-import { baseTextColor, cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { Icon } from './icon';
 import { useRouter } from 'next/navigation';
 
@@ -100,7 +100,7 @@ const CardClickable = (props: CardClickableProps) => {
       )}
       <div className="flex flex-col gap-[0.05rem]">
         <span className="font-bold tracking-wide">{props.title}</span>
-        <div className={cn('[&>:first-child]:!mt-0', baseTextColor)}>
+        <div className="base-text-color [&>:first-child]:!mt-0">
           {props.children}
         </div>
       </div>

@@ -16,7 +16,7 @@ const AccordionItem = React.forwardRef<
   <AccordionPrimitive.Item
     ref={ref}
     className={cn(
-      'my-4 rounded-md border border-b border-opacity-40 bg-white dark:border-opacity-40 dark:bg-zinc-950',
+      'base-border-color my-4 rounded-md border bg-white dark:bg-zinc-950',
       className
     )}
     {...props}
@@ -62,7 +62,7 @@ const AccordionContent = React.forwardRef<
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
 const AccordionGroup = ({ children }: { children: React.ReactNode }) => (
-  <div className="my-6 divide-y divide-black divide-opacity-5 rounded-md border border-b border-opacity-40 bg-white dark:divide-white dark:divide-opacity-5 dark:border-opacity-40 dark:bg-zinc-950 [&>div:first-child>div>h3>button]:!rounded-t-md [&>div>div>h3>button]:!rounded-none [&>div>div]:m-0 [&>div>div]:border-none">
+  <div className="base-border-color my-6 divide-y divide-black divide-opacity-5 rounded-md border bg-white dark:divide-white dark:divide-opacity-5 dark:bg-zinc-950 [&>div:first-child>div>h3>button]:!rounded-t-md [&>div>div>h3>button]:!rounded-none [&>div>div]:m-0 [&>div>div]:border-none">
     {children}
   </div>
 );

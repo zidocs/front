@@ -1,4 +1,4 @@
-import { baseTextColor, cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import React, { ReactNode } from 'react';
 import { Icon } from './icon';
 import dynamicIconImports from 'lucide-react/dynamicIconImports';
@@ -12,8 +12,7 @@ const CalloutBox = (props: CalloutBoxProps) => {
   return (
     <div
       className={cn(
-        'flex w-full items-center gap-3 rounded-xl border-[0.1px] bg-opacity-5 px-4 py-4 text-sm dark:bg-opacity-20 [&>*]:m-0',
-        baseTextColor,
+        'base-text-color flex w-full items-center gap-3 rounded-xl border-[0.1px] bg-opacity-5 px-4 py-4 text-sm children:m-0 dark:bg-opacity-20',
         props.className
       )}
     >

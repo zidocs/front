@@ -1,7 +1,7 @@
 'use client';
 
-import { baseTextColor, cn } from '@/lib/utils';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { usePathname } from 'next/navigation';
@@ -33,8 +33,7 @@ function SideBarSubItem({ title, href, icon, onClick }: ISideBarSubItem) {
         buttonVariants({
           variant: 'ghost',
         }),
-        baseTextColor,
-        `flex h-auto w-full items-center justify-start gap-2 font-normal tracking-wide hover:bg-muted hover:bg-opacity-10`,
+        `base-text-color flex h-auto w-full items-center justify-start gap-2 font-normal tracking-wide hover:bg-muted hover:bg-opacity-10`,
         pathname === `/${href}` &&
           'bg-muted bg-opacity-10 text-primary opacity-100 hover:bg-opacity-10 hover:text-primary dark:text-primary'
       )}

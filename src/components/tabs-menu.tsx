@@ -2,7 +2,7 @@
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DataFromConfig } from '@/lib/mdx';
-import { baseTextColor, cn, getActualTab, slugify } from '@/lib/utils';
+import { cn, getActualTab, slugify } from '@/lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -50,10 +50,10 @@ export function TabsMenu({
                 className={cn(
                   `${
                     open
-                      ? 'flex gap-2 text-base  font-semibold text-white data-[state=active]:text-primary data-[state=active]:dark:text-primary [&>svg]:hover:text-primary'
-                      : 'data-[state=active]:text-foreground data-[state=inactive]:text-opacity-70 data-[state=active]:underline data-[state=active]:decoration-primary data-[state=active]:underline-offset-[1.165rem] data-[state=inactive]:hover:text-opacity-90 data-[state=inactive]:hover:underline data-[state=inactive]:hover:decoration-zinc-200 data-[state=inactive]:hover:underline-offset-[1.165rem] data-[state=inactive]:dark:text-opacity-70 data-[state=inactive]:dark:hover:text-opacity-90  dark:data-[state=inactive]:hover:decoration-zinc-700'
+                      ? 'flex gap-2 text-base font-semibold  text-white data-[state=active]:decoration-transparent [&>svg]:hover:text-primary'
+                      : 'tab-inactive'
                   }`,
-                  'text-normal pl-0 font-normal tracking-wide text-black hover:text-opacity-100 dark:text-white'
+                  'tab-active text-normal pl-0 font-normal tracking-wide text-black hover:text-opacity-100 dark:text-white'
                 )}
                 onClick={() => setOpen && setOpen(false)}
                 value={slugify(tab.tabName)}
