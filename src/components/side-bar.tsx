@@ -33,20 +33,29 @@ function SideBarSubItem({ title, href, icon, onClick }: ISideBarSubItem) {
         buttonVariants({
           variant: 'ghost',
         }),
-        `base-text-color flex h-auto w-full items-center justify-start gap-2 font-normal tracking-wide hover:bg-muted hover:bg-opacity-10`,
-        pathname === `/${href}` &&
-          'bg-muted bg-opacity-10 text-primary opacity-100 hover:bg-opacity-10 hover:text-primary dark:text-primary'
+        pathname === `/${href}`
+          ? 'bg-muted bg-opacity-10 text-primary opacity-100 hover:text-primary dark:text-primary'
+          : 'opacity-60 hover:opacity-80',
+        'flex h-auto w-full items-center justify-start gap-2 font-normal tracking-wide hover:bg-muted hover:bg-opacity-10'
       )}
       onClick={onClick}
     >
       {icon && (
-        <Icon name={icon} size="1x" className="min-w-[14px] text-center" />
+        <Icon
+          name={icon}
+          className={cn(
+            'min-w-[14px] text-center',
+            pathname === `/${href}`
+              ? 'text-primary opacity-100 dark:text-primary'
+              : 'base-text-color'
+          )}
+        />
       )}
       <Typography
         variant="span"
         className={cn(
-          `space-x-2.5 text-base font-light dark:opacity-70 lg:text-sm`,
-          pathname === `/${href}` && 'font-medium dark:opacity-100'
+          `space-x-2.5 text-base font-light lg:text-sm`,
+          pathname === `/${href}` && 'font-medium'
         )}
       >
         {title}

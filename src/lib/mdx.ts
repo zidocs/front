@@ -10,7 +10,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { rehypeNestedHeadings, rehypePreRaw, rehypeRaw } from './utils';
 import rehypePrettyCode from 'rehype-pretty-code';
 
-export const configTyped: {
+export type IConfig = {
   name: string;
   logo?: {
     dark?: string;
@@ -34,7 +34,9 @@ export const configTyped: {
     name: string;
     groups: string[];
   }[];
-} = config;
+};
+
+const configTyped = config;
 
 const rehypePlugins = [
   rehypeRaw,
