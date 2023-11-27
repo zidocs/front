@@ -9,6 +9,7 @@ import { CardClickable } from '../ui/card';
 import { CardGroup } from '../ui/card-group';
 import { Picture } from '../ui/picture';
 import { Code, CodeGroup, Pre } from '../ui/code';
+import { Step, Steps } from '../ui/steps';
 
 export const components = {
   a: (props: React.HTMLAttributes<HTMLAnchorElement>) => {
@@ -30,6 +31,8 @@ export const components = {
   // Components
   ResponseField: ResponseField,
   Expandable: Expandable,
+  Steps: Steps,
+  Step: Step,
   Card: CardClickable,
   CardGroup: CardGroup,
   Image: Picture,
