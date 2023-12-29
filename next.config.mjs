@@ -13,6 +13,8 @@ const nextConfig = {
       },
     ],
   },
+  basePath: '/starter-kit',
+  assetPrefix: '/starter-kit/',
 };
 
 export default nextConfig;
