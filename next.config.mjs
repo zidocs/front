@@ -14,7 +14,7 @@ const nextConfig = {
     ],
   },
   basePath: '/starter-kit',
-  assetPrefix: '/starter-kit/',
+  assetPrefix: '/starter-kit/starter-kit/',
 };
 
 export default nextConfig;
