@@ -9,8 +9,8 @@ import { Request } from '@/components/ui/request';
 export const dynamic = 'error';
 export const dynamicParams = false;
 
-import openapi from '../../../public/api-reference/openapi.json';
-import { OpenAPIV3 } from '@/lib/openapi-types';
+//import openapi from '../../../public/api-reference/openapi.json';
+//import { OpenAPIV3 } from '@/lib/openapi-types';
 
 export async function generateStaticParams() {
   return getAllPagesSlugList();
@@ -36,9 +36,9 @@ export interface PageProps {
 export default async function Page({ params }: PageProps) {
   const mdx = await getMdxBySlug(params.slug.join('/'));
 
-  const open = openapi as OpenAPIV3.Document;
-  const paths = Object.keys(open.paths);
-  const methods = Object.keys(open.paths[paths[0]] as object);
+  //const open = openapi as OpenAPIV3.Document;
+  //const paths = Object.keys(open.paths);
+  //const methods = Object.keys(open.paths[paths[0]] as object);
 
   if (!mdx) {
     redirect(`/${configTyped.navigation[0].pages[0]}`);
