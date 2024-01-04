@@ -260,14 +260,17 @@ export const getAllPagesSlugList = async () => {
 export const getEndpointOpenApiData = async (endpointOpenApi: string) => {
   try {
     let contents;
-
-    if (config.openapi && isUrl(config.openapi)) {
+    const configTyped = config as ZidocsConfig;
+    if (configTyped.openapi && isUrl(configTyped.openapi)) {
       // Remote spec
-      const response = await fetch(config.openapi);
+      const response = await fetch(configTyped.openapi);
       contents = await response.text();
     } else {
       // Local spec
-      contents = fs.readFileSync(`${FOLDER_PATH}/${config.openapi}`, 'utf8');
+      contents = fs.readFileSync(
+        `${FOLDER_PATH}/${configTyped.openapi}`,
+        'utf8'
+      );
     }
 
     const path = endpointOpenApi
