@@ -72,4 +72,8 @@
   .tab-inactive {
     @apply data-[state=inactive]:text-opacity-70  data-[state=inactive]:hover:text-opacity-90 data-[state=inactive]:hover:underline data-[state=inactive]:hover:decoration-zinc-200  data-[state=inactive]:hover:underline-offset-[1.165rem]  data-[state=inactive]:dark:text-opacity-70  data-[state=inactive]:dark:hover:text-opacity-90 dark:data-[state=inactive]:hover:decoration-zinc-700;
   }
+
+  .json-highlight {
+    @apply text-black dark:text-white [&>.boolean]:text-[#BD93F9]  [&>.key]:text-[#A31515] dark:[&>.key]:text-[#F1FA8C] [&>.null]:text-[#0000FF] dark:[&>.null]:text-[#BD93F9] [&>.number]:text-[#098658] dark:[&>.number]:text-[#BD93F9] [&>.string]:text-[#A31515] dark:[&>.string]:text-[#F1FA8C];
+  }
 }

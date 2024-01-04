@@ -2,15 +2,18 @@ import fs from 'fs';
 import path from 'path';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import { components } from '../components/mdx';
-import config from '../../public/starter-kit/zidocs.json';
+import config from '../../public/zidocs.json';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import emoji from 'remark-emoji';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { rehypeNestedHeadings, rehypePreRaw, rehypeRaw } from './utils';
 import rehypePrettyCode from 'rehype-pretty-code';
+import 'isomorphic-fetch';
+import isUrl from 'is-url';
+import yaml from 'js-yaml';
 
-export type IConfig = {
+export type ZidocsConfig = {
   name: string;
   logo?: {
     dark?: string;
@@ -34,11 +37,18 @@ export type IConfig = {
     name: string;
     groups: string[];
   }[];
+  openapi?: string;
+  api?: {
+    baseUrl: string;
+    auth: {
+      method: string;
+    };
+  };
 };
 
 const configTyped = config;
 
-const rehypePlugins = [
+export const rehypePlugins = [
   rehypeRaw,
   [
     rehypePrettyCode,
@@ -73,7 +83,8 @@ export interface IMDXFile {
 export interface IMDXMeta {
   title: string;
   description: string;
-  toc: TableOfContent;
+  groupName: string;
+  openapi?: string;
   additionalProperties?: any;
 }
 
@@ -97,12 +108,13 @@ export interface GroupFromConfig {
 export interface PageFromConfig {
   title: string;
   href: string;
+  toc: TableOfContent[];
+  content: string;
   icon?: string;
   group?: string;
-  content: string;
 }
 
-const FOLDER_PATH = path.join(process.cwd(), 'public/starter-kit');
+const FOLDER_PATH = path.join(process.cwd(), 'public');
 
 export const getMdxBySlug = async (
   slug: string,
@@ -114,80 +126,48 @@ export const getMdxBySlug = async (
       encoding: 'utf-8',
     });
     const headings: any[] = [];
+
     const { frontmatter, content } = await compileMDX({
       source: fileContent,
       options: {
         parseFrontmatter: true,
         mdxOptions: {
-          //@ts-ignore
           rehypePlugins: [
             //@ts-ignore
             ...rehypePlugins,
             //@ts-ignore
             [rehypeNestedHeadings, { headings }],
           ],
-
-          //@ts-ignore
           remarkPlugins,
         },
       },
       components,
     });
 
-    const groupName = getGroupName(slug);
+    const groupName = getPageGroupName(slug);
+    if (frontmatter.openapi) {
+      await getEndpointOpenApiData(frontmatter.openapi as string);
+    }
 
     return {
       meta: {
         ...frontmatter,
         ...additionalProperties,
-        groupName,
         toc: headings,
+        groupName,
       },
       content,
     };
   } catch (err) {
-    //console.log(err);
+    console.log(err);
   }
 };
 
-export const getMdxMetaDataBySlug = async (
-  slug: string,
-  additionalProperties?: any
-) => {
-  try {
-    const fileSlug = slug.replace(/\.mdx$/, '');
-    const fileContent = fs.readFileSync(`${FOLDER_PATH}/${fileSlug}.mdx`, {
-      encoding: 'utf-8',
-    });
-
-    const { frontmatter } = await compileMDX({
-      source: fileContent,
-      options: {
-        parseFrontmatter: true,
-        mdxOptions: {
-          //@ts-ignore
-          rehypePlugins,
-          //@ts-ignore
-          remarkPlugins,
-        },
-      },
-      components,
-    });
-
-    return {
-      meta: { ...frontmatter, ...additionalProperties },
-      content: fileContent,
-    };
-  } catch (err) {
-    //console.log(err);
-  }
-};
-
-export const getAllData = async () => {
+export const getAllMdx = async () => {
   const promisesArray = config.navigation.map(async ({ group, pages }) => {
     return Promise.all(
       pages.map(async (page) => {
-        const mdx = await getMdxMetaDataBySlug(page, { group, filePath: page });
+        const mdx = await getMdxBySlug(page, { group, filePath: page });
         return mdx;
       })
     );
@@ -226,10 +206,11 @@ export const getAllData = async () => {
 
             group?.pages.push({
               title: meta.title,
-              icon: meta.icon,
               href: meta.filePath,
-              group: groupName,
+              toc: meta.toc,
               content: content,
+              icon: meta.icon,
+              group: groupName,
             });
             haveATab = true;
           }
@@ -253,6 +234,7 @@ export const getAllData = async () => {
         targetTab.groups[groupIndex].pages.push({
           title: meta.title,
           href: meta.filePath,
+          toc: meta.toc,
           group: meta.group,
           content: content,
         });
@@ -263,8 +245,65 @@ export const getAllData = async () => {
   return result;
 };
 
-export const getGroupName = (pageName: string) => {
+export const getPageGroupName = (pageName: string) => {
   return config.navigation.find((group) => {
     return group.pages.find((page) => pageName == page);
   })?.group;
+};
+
+export const getAllPagesSlugList = async () => {
+  return config.navigation.flatMap(({ pages }) =>
+    pages.map((page) => ({ slug: page.split('/') }))
+  );
+};
+
+export const getEndpointOpenApiData = async (endpointOpenApi: string) => {
+  try {
+    let contents;
+
+    if (isUrl(config.openapi)) {
+      // Remote spec
+      const response = await fetch(config.openapi);
+      contents = await response.text();
+    } else {
+      // Local spec
+      contents = fs.readFileSync(`${FOLDER_PATH}/${config.openapi}`, 'utf8');
+    }
+
+    const path = endpointOpenApi
+      .split(' ')
+      .find((path: string) => path.includes('/'));
+
+    const operadores = ['get', 'post', 'put', 'delete'];
+
+    const operador = endpointOpenApi
+      .split(' ')
+      .find((word: string) => operadores.includes(word.toLowerCase()));
+
+    const spec: any = await yaml.load(contents);
+
+    if (path && operador) {
+      const t = spec.paths[path][operador?.toLowerCase()];
+      // console.log(spec.paths[path][operador?.toLowerCase()]);
+      // console.log(t.parameters[0].schema);
+    }
+  } catch (err) {
+    console.log(`Unable to get ${endpointOpenApi} in openApi file.`);
+  }
+};
+
+export const getMdxMetadata = async (slug: string) => {
+  const fileSlug = slug.replace(/\.mdx$/, '');
+  const fileContent = fs.readFileSync(`${FOLDER_PATH}/${fileSlug}.mdx`, {
+    encoding: 'utf-8',
+  });
+
+  const { frontmatter } = await compileMDX({
+    source: fileContent,
+    options: {
+      parseFrontmatter: true,
+    },
+  });
+
+  return frontmatter;
 };
