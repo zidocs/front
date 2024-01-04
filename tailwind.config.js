@@ -1,4 +1,4 @@
-var config = require('./public/starter-kit/zidocs.json');
+var config = require('./public/zidocs.json');
 const { createThemes } = require('tw-colors');
 const plugin = require('tailwindcss/plugin');
 

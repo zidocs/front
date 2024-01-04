@@ -32,9 +32,7 @@ export function Search({ data }: SearchProps) {
       .map((tab) => {
         return {
           name: tab.groups[0].name,
-          pages: tab.groups[0].pages.filter((page) =>
-            page.content.toLowerCase().includes(search.toLowerCase())
-          ),
+          pages: [],
         };
       })
       .filter((group) => (group.pages.length > 0 ? true : false));

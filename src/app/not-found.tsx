@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
-import config from '../../public/starter-kit/zidocs.json';
+import config from '../../public/zidocs.json';
 
 import { RedirectType } from 'next/dist/client/components/redirect';
 

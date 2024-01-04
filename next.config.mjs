@@ -1,5 +1,6 @@
+import config from './public/zidocs.json';
+
 const nextConfig = {
-  //trailingSlash: true,
   output: 'export',
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: false,
@@ -13,8 +14,7 @@ const nextConfig = {
       },
     ],
   },
-  basePath: '/starter-kit',
-  assetPrefix: '/starter-kit/',
+  basePath: `/${config.repoName}` ?? '/',
 };
 
 export default nextConfig;

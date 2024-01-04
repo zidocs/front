@@ -5,14 +5,14 @@ import { ModeToggle } from './mode-toggle';
 import { Search } from './ui/search';
 import { Sidebar } from './side-bar';
 import { usePathname } from 'next/navigation';
-import { DataFromConfig } from '@/lib/mdx';
+import { DataFromConfig, ZidocsConfig } from '@/lib/mdx';
 import { TabsMenu } from './tabs-menu';
 import { cn, getActualPage } from '@/lib/utils';
 import { ChevronRight, Menu } from 'lucide-react';
 
 interface NavBarProps {
   data: DataFromConfig[];
-  config: any;
+  config: ZidocsConfig;
 }
 export function NavBar({ data, config }: NavBarProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,12 +33,12 @@ export function NavBar({ data, config }: NavBarProps) {
           <div className="flex items-center gap-2 border-b border-primary border-opacity-5 p-2 px-4 lg:p-4 lg:px-12">
             <img
               className="hidden dark:block"
-              src={`/starter-kit/${config.logo.dark}`}
+              src={`/${config.logo?.dark}`}
               width={100}
             />
             <img
               className="hidden light:block"
-              src={`/starter-kit/${config.logo.light}`}
+              src={`/${config.logo?.light}`}
               width={100}
             />
             <div className="ml-auto flex items-center space-x-4">

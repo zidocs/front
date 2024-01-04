@@ -10,7 +10,6 @@ export const dynamic = 'error';
 
 interface RightSideBarProps {
   data: DataFromConfig[];
-  toc: TableOfContent[];
 }
 
 interface RightSideBarItem {
@@ -19,7 +18,7 @@ interface RightSideBarItem {
   depth?: number;
 }
 
-export function RightSideBar({ data, toc }: RightSideBarProps) {
+export function RightSideBar({ data }: RightSideBarProps) {
   const pathname = usePathname();
   const [selectedItem, setSelectedItem] = useState<{
     id: string;
@@ -33,7 +32,7 @@ export function RightSideBar({ data, toc }: RightSideBarProps) {
         return;
       }
 
-      const result = toc.map(({ depth, value, id }) => {
+      const result = actualPage.toc.map(({ depth, value, id }) => {
         return {
           name: value,
           href: id,
@@ -49,11 +48,15 @@ export function RightSideBar({ data, toc }: RightSideBarProps) {
     } catch (err) {
       console.log(err);
     }
-  }, [toc, actualPage]);
+  }, [actualPage]);
 
   useEffect(() => {
     try {
-      const result = toc.map(({ depth, value, id }) => {
+      if (!actualPage) {
+        return;
+      }
+
+      const result = actualPage.toc.map(({ depth, value, id }) => {
         return {
           name: value,
           href: id,
