@@ -261,7 +261,7 @@ export const getEndpointOpenApiData = async (endpointOpenApi: string) => {
   try {
     let contents;
 
-    if (isUrl(config.openapi)) {
+    if (config.openapi && isUrl(config.openapi)) {
       // Remote spec
       const response = await fetch(config.openapi);
       contents = await response.text();
