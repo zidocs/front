@@ -1,4 +1,6 @@
-import config from './public/zidocs.json';
+'use strict';
+
+import config from './public/zidocs.json' assert { type: 'json' };
 
 const nextConfig = {
   output: 'export',
