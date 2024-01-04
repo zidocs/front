@@ -1,10 +1,8 @@
 import { Typography } from '@/components/mdx/typography';
 import { getMdxBySlug, getAllPagesSlugList, getMdxMetadata } from '@/lib/mdx';
 import { redirect } from 'next/navigation';
-import config from '../../../public/zidocs.json';
 import { Metadata, ResolvingMetadata } from 'next';
 import { configTyped } from '../layout';
-import { Request } from '@/components/ui/request';
 
 export const dynamic = 'error';
 export const dynamicParams = false;
