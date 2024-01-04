@@ -1,7 +1,7 @@
 import { Typography } from '@/components/mdx/typography';
 import { getMdxBySlug, getAllData } from '@/lib/mdx';
 import { redirect } from 'next/navigation';
-import config from '../../../public/starter-kit/zidocs.json';
+import config from '../../../public/zidocs.json';
 import { Metadata, ResolvingMetadata } from 'next';
 import { RightSideBar } from '@/components/right-side-bar';
 import { cn } from '@/lib/utils';
