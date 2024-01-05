@@ -8,8 +8,7 @@ import {
 import { redirect } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
 import config from '../../../public/zidocs.json';
-
-export const configTyped = config as ZidocsConfig;
+import { configTyped } from '@/lib/utils';
 
 export async function generateStaticParams() {
   return getAllPagesSlugList();
