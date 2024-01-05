@@ -15,8 +15,9 @@ const nextConfig = {
         port: '',
       },
     ],
+    unoptimized: true,
   },
-  basePath: `/${config.repoName}` ?? '/',
+  basePath: config.repoName ? `/${config?.repoName}` : '',
 };
 
 export default nextConfig;

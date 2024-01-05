@@ -15,6 +15,7 @@ import yaml from 'js-yaml';
 
 export type ZidocsConfig = {
   name: string;
+  repoName: string;
   logo?: {
     dark?: string;
     light?: string;

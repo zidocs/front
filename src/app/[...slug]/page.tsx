@@ -1,14 +1,15 @@
 import { Typography } from '@/components/mdx/typography';
-import { getMdxBySlug, getAllPagesSlugList, getMdxMetadata } from '@/lib/mdx';
+import {
+  getMdxBySlug,
+  getAllPagesSlugList,
+  getMdxMetadata,
+  ZidocsConfig,
+} from '@/lib/mdx';
 import { redirect } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
-import { configTyped } from '../layout';
+import config from '../../../public/zidocs.json';
 
-export const dynamic = 'error';
-export const dynamicParams = false;
-
-//import openapi from '../../../public/api-reference/openapi.json';
-//import { OpenAPIV3 } from '@/lib/openapi-types';
+export const configTyped = config as ZidocsConfig;
 
 export async function generateStaticParams() {
   return getAllPagesSlugList();

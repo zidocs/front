@@ -7,13 +7,15 @@ import { Sidebar } from './side-bar';
 import { usePathname } from 'next/navigation';
 import { DataFromConfig, ZidocsConfig } from '@/lib/mdx';
 import { TabsMenu } from './tabs-menu';
-import { cn, getActualPage } from '@/lib/utils';
+import { cn, getActualPage, importImagePath } from '@/lib/utils';
 import { ChevronRight, Menu } from 'lucide-react';
+import Image from 'next/image';
 
 interface NavBarProps {
   data: DataFromConfig[];
   config: ZidocsConfig;
 }
+
 export function NavBar({ data, config }: NavBarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
@@ -31,15 +33,19 @@ export function NavBar({ data, config }: NavBarProps) {
       <div className="sticky top-0 z-30 m-auto mb-4 flex max-w-8xl flex-col pt-1 backdrop-blur-md">
         <div className="border-0 border-black dark:border-white dark:border-opacity-10 lg:border-b lg:border-opacity-5">
           <div className="flex items-center gap-2 border-b border-primary border-opacity-5 p-2 px-4 lg:p-4 lg:px-12">
-            <img
+            <Image
               className="hidden dark:block"
-              src={`${config.logo?.dark}`}
+              src={`${importImagePath}${config.logo?.dark}`}
               width={100}
+              height={100}
+              alt="logo"
             />
-            <img
+            <Image
               className="hidden light:block"
-              src={`${config.logo?.light}`}
+              src={`${importImagePath}${config.logo?.dark}`}
               width={100}
+              height={100}
+              alt="logo"
             />
             <div className="ml-auto flex items-center space-x-4">
               <Search data={data} />

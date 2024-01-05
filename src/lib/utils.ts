@@ -1,10 +1,11 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { DataFromConfig } from './mdx';
+import { DataFromConfig, ZidocsConfig } from './mdx';
 import { toString } from 'mdast-util-to-string';
 import { visit } from 'unist-util-visit';
 import { headingRank as rank } from 'hast-util-heading-rank';
 import React, { ReactNode } from 'react';
+import config from '../../public/zidocs.json';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -214,3 +215,10 @@ export const rehypeRaw = () => {
 
 export const hasOnlyOneChild = (children: ReactNode) =>
   React.Children.count(children) === 1;
+
+export const isProduction = () => process.env.ENVIRONMENT === 'production';
+
+export const configTyped = config as ZidocsConfig;
+
+export const importImagePath =
+  process.env.ENVIRONMENT === 'production' ? `/${configTyped.repoName}` : '';
