@@ -35,14 +35,14 @@ export function NavBar({ data, config }: NavBarProps) {
           <div className="flex items-center gap-2 border-b border-primary border-opacity-5 p-2 px-4 lg:p-4 lg:px-12">
             <Image
               className="hidden dark:block"
-              src={`${importImagePath}${config.logo?.dark}`}
+              src={`${importImagePath()}${config.logo?.dark}`}
               width={100}
               height={100}
               alt="logo"
             />
             <Image
               className="hidden light:block"
-              src={`${importImagePath}${config.logo?.dark}`}
+              src={`${importImagePath()}${config.logo?.light}`}
               width={100}
               height={100}
               alt="logo"
